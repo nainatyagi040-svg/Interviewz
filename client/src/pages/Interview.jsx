@@ -1,13 +1,14 @@
-import { useMemo } from 'react';
-import { Link } from 'react-router-dom';
-import { AnimatePresence, motion } from 'framer-motion';
-import { Repeat, X } from 'lucide-react';
-import { useInterviewStore } from '../store/interviewStore.js';
-import { BRAND } from '../lib/constants.js';
-import CandidatePicker from '../components/interview/CandidatePicker.jsx';
-import ChatTranscript from '../components/interview/ChatTranscript.jsx';
-import ChatInput from '../components/interview/ChatInput.jsx';
-import FeedbackScreen from '../components/interview/FeedbackScreen.jsx';
+import CameraFeed from "../components/interview/CameraFeed";
+import { useMemo } from "react";
+import { Link } from "react-router-dom";
+import { AnimatePresence, motion } from "framer-motion";
+import { Repeat, X } from "lucide-react";
+import { useInterviewStore } from "../store/interviewStore.js";
+import { BRAND } from "../lib/constants.js";
+import CandidatePicker from "../components/interview/CandidatePicker.jsx";
+import ChatTranscript from "../components/interview/ChatTranscript.jsx";
+import ChatInput from "../components/interview/ChatInput.jsx";
+import FeedbackScreen from "../components/interview/FeedbackScreen.jsx";
 
 export default function Interview() {
   const {
@@ -24,8 +25,8 @@ export default function Interview() {
 
   // Client-side progress: number of interviewer questions asked so far.
   const questionCount = useMemo(
-    () => messages.filter((m) => m.role === 'interviewer').length,
-    [messages]
+    () => messages.filter((m) => m.role === "interviewer").length,
+    [messages],
   );
 
   // 1) No candidate chosen yet → picker.
@@ -34,14 +35,21 @@ export default function Interview() {
   }
 
   // 3) Completed → feedback screen.
-  if (status === 'complete') {
-    return <FeedbackScreen feedback={feedback} candidate={candidate} onRestart={reset} />;
+  if (status === "complete") {
+    return (
+      <FeedbackScreen
+        feedback={feedback}
+        candidate={candidate}
+        onRestart={reset}
+      />
+    );
   }
 
   // 2) Live interview (in_progress | loading | error).
   const member = candidate.member ?? {};
   return (
     <div className="flex h-screen flex-col bg-slate-50/60">
+      <CameraFeed />
       {/* Interview header */}
       <header className="border-b border-slate-200/80 bg-white/80 backdrop-blur">
         <div className="mx-auto flex max-w-3xl items-center gap-3 px-4 py-3 sm:px-6">
@@ -50,9 +58,11 @@ export default function Interview() {
           </span>
           <div className="min-w-0">
             <p className="truncate text-sm font-semibold text-slate-900">
-              {member.name ?? 'Candidate'}
+              {member.name ?? "Candidate"}
             </p>
-            <p className="truncate text-xs text-slate-500">{member.jobRole ?? BRAND.name}</p>
+            <p className="truncate text-xs text-slate-500">
+              {member.jobRole ?? BRAND.name}
+            </p>
           </div>
           <button
             type="button"
@@ -78,7 +88,7 @@ export default function Interview() {
             onRetry={retryLast}
             questionCount={questionCount}
           />
-          <ChatInput onSend={sendMessage} disabled={status === 'loading'} />
+          <ChatInput onSend={sendMessage} disabled={status === "loading"} />
         </motion.div>
       </AnimatePresence>
     </div>
