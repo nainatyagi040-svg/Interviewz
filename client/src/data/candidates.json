@@ -1,0 +1,73 @@
+{
+  "candidates": [
+    {
+      "member": {
+        "id": "CAND-001",
+        "name": "Alex Turner",
+        "jobRole": "Backend Software Engineer",
+        "yearsExperience": 5,
+        "education": "B.Tech Computer Science",
+        "status": "COMPLETED"
+      },
+      "missions": [
+        { "day": 7, "title": "Embeddings Explained", "passed": true, "attempts": 3 },
+        { "day": 11, "title": "Structured Output & JSON Mode", "passed": true, "attempts": 1 },
+        { "day": 19, "title": "Building a RAG Pipeline", "passed": true, "attempts": 2 },
+        { "day": 22, "title": "Tool Use & Function Calling", "passed": true, "attempts": 1 },
+        { "day": 27, "title": "Building an MCP Server", "passed": true, "attempts": 4 },
+        { "day": 29, "title": "Monitoring, Logging & Observability", "skipped": true }
+      ],
+      "signals": {
+        "commitDays": 22,
+        "missionsCompleted": 29,
+        "missionsFirstTry": 10
+      }
+    },
+    {
+      "member": {
+        "id": "CAND-002",
+        "name": "Priya Nair",
+        "jobRole": "ML Engineer",
+        "yearsExperience": 3,
+        "education": "M.Sc Data Science",
+        "status": "COMPLETED"
+      },
+      "missions": [
+        { "day": 8, "title": "How LLMs Work", "passed": true, "attempts": 1 },
+        { "day": 16, "title": "Intro to Retrieval-Augmented Generation", "passed": true, "attempts": 1 },
+        { "day": 18, "title": "Vector Databases", "passed": true, "attempts": 3 },
+        { "day": 20, "title": "RAG Evaluation & Failure Modes", "passed": true, "attempts": 2 },
+        { "day": 23, "title": "Multi-step Agent Loops", "skipped": true },
+        { "day": 25, "title": "Multi-Agent Systems", "passed": true, "attempts": 1 }
+      ],
+      "signals": {
+        "commitDays": 27,
+        "missionsCompleted": 30,
+        "missionsFirstTry": 18
+      }
+    },
+    {
+      "member": {
+        "id": "CAND-003",
+        "name": "Marcus Chen",
+        "jobRole": "Full-Stack Developer",
+        "yearsExperience": 2,
+        "education": "B.S. Software Engineering",
+        "status": "IN_PROGRESS"
+      },
+      "missions": [
+        { "day": 4, "title": "Python for AI Engineers", "passed": true, "attempts": 2 },
+        { "day": 13, "title": "Prompt Engineering Foundations", "passed": true, "attempts": 1 },
+        { "day": 15, "title": "System Prompts & Guardrails", "passed": true, "attempts": 5 },
+        { "day": 17, "title": "Chunking & Indexing", "skipped": true },
+        { "day": 21, "title": "What Is an Agent?", "passed": true, "attempts": 2 },
+        { "day": 26, "title": "Intro to the Model Context Protocol", "passed": true, "attempts": 3 }
+      ],
+      "signals": {
+        "commitDays": 14,
+        "missionsCompleted": 19,
+        "missionsFirstTry": 6
+      }
+    }
+  ]
+}
