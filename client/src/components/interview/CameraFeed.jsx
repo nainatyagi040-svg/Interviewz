@@ -5,7 +5,6 @@ export default function CameraFeed() {
   const videoRef = useRef(null);
   const [status, setStatus] = useState("requesting");
   const [hidden, setHidden] = useState(false);
-
   useEffect(() => {
     let stream;
     let cancelled = false;
@@ -26,14 +25,17 @@ export default function CameraFeed() {
           return;
         }
 
-        if (videoRef.current) {
-          videoRef.current.srcObject = stream;
-        }
+        setStatus("live");
 
+        requestAnimationFrame(() => {
+          if (!videoRef.current) return;
+
+          videoRef.current.srcObject = stream;
+          videoRef.current.play().catch(() => {});
+        });
         setStatus("live");
       } catch (err) {
         console.error("Camera error:", err);
-        alert(`${err.name}: ${err.message}`);
         setStatus(err?.name === "NotFoundError" ? "unavailable" : "denied");
       }
     }
@@ -51,21 +53,29 @@ export default function CameraFeed() {
   }
 
   return (
-    <div className="fixed bottom-5 right-5 z-40">
+    <div className="fixed bottom-24 right-6 z-40">
       <div
         className={`relative w-28 h-28 sm:w-36 sm:h-36 rounded-full overflow-hidden border-4 shadow-xl ${
           status === "live" ? "border-indigo-500" : "border-gray-300"
         }`}
       >
-        {status === "live" ? (
-          <video
-            ref={videoRef}
-            autoPlay
-            playsInline
-            muted
-            className="w-full h-full object-cover scale-x-[-1]"
-          />
-        ) : (
+        <video
+          ref={videoRef}
+          autoPlay
+          playsInline
+          muted
+          width={200}
+          height={200}
+          style={{
+            width: "100%",
+            height: "100%",
+            objectFit: "cover",
+            transform: "scaleX(-1)",
+            display: status === "live" ? "block" : "none",
+          }}
+        />
+
+        {status !== "live" && (
           <div className="w-full h-full flex items-center justify-center bg-gray-100 text-gray-400">
             {status === "requesting" ? (
               <Video className="w-8 h-8 animate-pulse" />
