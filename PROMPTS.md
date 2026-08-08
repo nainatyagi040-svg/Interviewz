@@ -1,86 +1,327 @@
-# AI Usage Log — Loop (AI Interview Agent)
+# AI Usage Log — Interviewz (AI Mock Interview Platform)
 
-This log documents real prompts and AI-assisted decisions made while building
-this project, in the order features were built.
+This document records the major AI-assisted design decisions, prompts, debugging
+sessions, and implementation work completed while building Interviewz.
 
-## Backend & Frontend Architecture
+The project was developed iteratively with AI assistance, while all integration,
+testing, debugging, deployment, and verification were performed manually.
 
-### Prompt
-Asked for two complete reference specs (BACKEND.md, FRONTEND.md) to hand to an
-AI coding agent, covering tech stack, the required POST /api/interview API
-contract, data models matching the provided curriculum.json/candidates.json,
-error handling/fallback requirements, and a YC-style landing page spec for
-the frontend.
+---
 
-### What it produced / how we used it
-Generated two full markdown specs locking in: Node/Express + Supabase +
-Google Gemini backend, React/Vite + Tailwind frontend, exact request/response
-formats from the technical spec, and a fallback-question strategy so the
-interview never hard-fails if the model API is unreachable. These became the
-project brief handed to the coding agent that scaffolded the app.
+# Backend & Frontend Architecture
 
-## Interview Question Targeting Logic
+## Prompt
 
-### Prompt
-Asked how to select which curriculum days to interview a candidate on, given
-their missions array (passed/attempts/skipped), so questions are personalized
-rather than random.
+Requested complete backend and frontend specifications describing the project
+architecture, technology stack, API contracts, folder structure, interview
+workflow, error handling strategy, and frontend UI requirements before writing
+production code.
 
-### What it produced / how we used it
-A targeting strategy: prioritize days the candidate struggled on (high
-attempts), days they skipped, and high-signal modules (RAG, Agentic AI, MCP)
-passed on the first try — spread across at least 4 distinct days, minimum 8
-questions, before the interview is allowed to end.
+## What it produced / how we used it
 
-## Debugging: Claude API 401 / AgentRouter misconfiguration
+Generated architecture documents that defined:
 
-### Prompt
-Provided terminal error logs showing repeated 401 "invalid x-api-key" errors
-and asked why the AI interviewer kept falling back to template questions
-instead of generating real ones.
+- Express.js backend
+- React + Vite frontend
+- Interview session workflow
+- API request/response formats
+- Validation strategy
+- Candidate data model
+- Curriculum data model
+- Feedback generation flow
+- Error handling and fallback behaviour
 
-### What it produced / how we used it
-Diagnosed a leftover `ANTHROPIC_BASE_URL` pointing at a third-party relay
-service instead of Anthropic directly, and a placeholder/empty API key in
-`.env`. Cleaned the environment file and confirmed the client code itself was
-already correct.
+These specifications became the implementation blueprint for the project.
 
-## Pivot: Claude → Gemini API
+---
 
-### Prompt
-Explained no budget was available for Anthropic API credits and asked for the
-fastest working alternative, given the hackathon rules allow any AI model.
+# Personalized Interview Question Strategy
 
-### What it produced / how we used it
-A drop-in replacement for the model-calling module (`claudeClient.js`) that
-swapped Anthropic's SDK for Google's `@google/genai` SDK, keeping the exact
-same function signature (`callClaude`, `fallbackQuestion`) so no other file in
-the app needed to change. Also caught and fixed a deprecated model ID
-(`gemini-2.5-flash` → `gemini-3.5-flash`) via a standalone test script that
-isolated the API call from the rest of the app.
+## Prompt
 
-## Bug: repeated/duplicate interview questions on live deployment
+Asked how interview questions should be selected so every candidate receives
+questions based on their actual learning history instead of a fixed sequence.
 
-### Prompt
-Reported that after deploying, the live site kept repeating the same question
-instead of progressing, and asked to find the exact cause using terminal/
-network logs rather than guessing.
+## What it produced / how we used it
 
-### What it produced / how we used it
-Traced it to two separate misconfigurations: (1) a missing SPA rewrite rule
-on Vercel causing `/interview` to 404 on direct load/refresh, fixed by adding
-`client/vercel.json`; (2) the deployed backend on Render was missing the
-`GEMINI_API_KEY` and other environment variables that only existed locally,
-so it was silently running on fallback questions. Added the missing env vars
-to both Render and Vercel and redeployed.
+Designed a targeting strategy that prioritizes:
 
-## Feedback screen & completion logic
+- Weak curriculum areas
+- High-attempt missions
+- Skipped missions
+- High-signal AI topics
+- Balanced curriculum coverage
 
-### Prompt
-Asked for the frontend to render the final feedback object (summary,
-strengths, gaps, next steps) as designed cards instead of raw JSON, with
-sensible empty states.
+This resulted in interviews that adapt to the selected candidate profile rather
+than asking static questions.
 
-### What it produced / how we used it
-Feedback screen implementation matching the technical spec's required fields,
-verified end-to-end on the live deployment with a real interview transcript.
+---
+
+# Claude API Authentication Failure
+
+## Prompt
+
+Provided backend logs showing repeated Claude API authentication failures and
+asked why interview generation always fell back to template questions.
+
+## What it produced / how we used it
+
+Identified an incorrect API configuration caused by:
+
+- Invalid API key
+- Incorrect API endpoint
+- Leftover relay configuration
+
+After correcting the environment configuration the backend authentication
+pipeline was restored.
+
+---
+
+# Migration from Claude API to Google Gemini
+
+## Prompt
+
+Requested a cost-free alternative to Claude while keeping the existing backend
+architecture unchanged.
+
+## What it produced / how we used it
+
+Replaced Anthropic SDK with Google's Gemini SDK while preserving the existing
+service interface.
+
+Only the model client changed while the interview engine continued calling the
+same functions.
+
+Additional improvements included:
+
+- retry handling
+- timeout protection
+- fallback questions
+- model configuration cleanup
+
+without changing interview business logic.
+
+---
+
+# Duplicate Interview Questions
+
+## Prompt
+
+Reported that deployed interviews repeatedly asked the same question and asked
+for debugging using logs instead of assumptions.
+
+## What it produced / how we used it
+
+The issue was traced to deployment configuration instead of interview logic.
+
+Fixes included:
+
+- SPA rewrite configuration on Vercel
+- Render environment variables
+- Gemini API configuration
+- deployment verification
+
+After redeployment interviews progressed normally.
+
+---
+
+# Feedback Screen
+
+## Prompt
+
+Requested a proper feedback page instead of displaying raw JSON.
+
+## What it produced / how we used it
+
+Implemented a structured interview summary showing:
+
+- Overall Summary
+- Strengths
+- Improvement Areas
+- Recommended Next Steps
+
+with graceful handling of empty values.
+
+---
+
+# Modern UI & Animation System
+
+## Prompt
+
+Requested a modern interview experience with animated backgrounds and continuous
+visual effects similar to modern AI products.
+
+## What it produced / how we used it
+
+Implemented:
+
+- Animated gradient background
+- Floating sparkles
+- Motion-based page transitions
+- Interactive candidate cards
+- Enhanced landing page visuals
+
+using Framer Motion while maintaining responsiveness.
+
+---
+
+# Camera Preview Integration
+
+## Prompt
+
+Requested a floating self-camera preview similar to modern interview platforms,
+without recording or transmitting any video.
+
+## What it produced / how we used it
+
+Implemented a browser-based live camera preview using:
+
+- getUserMedia()
+- React Hooks
+- Video stream lifecycle management
+
+including:
+
+- camera permission handling
+- unavailable device handling
+- hide camera option
+- responsive floating preview
+
+No camera data is uploaded or stored.
+
+---
+
+# Face Detection using MediaPipe
+
+## Prompt
+
+Requested face detection to monitor whether the candidate remains visible during
+the interview.
+
+## What it produced / how we used it
+
+Integrated Google's MediaPipe Tasks Vision library.
+
+Implemented:
+
+- Face detector initialization
+- Video stream analysis
+- Face presence detection
+- Real-time status updates
+
+showing:
+
+- Face Detected
+- No Face
+
+inside the interview interface.
+
+---
+
+# Head Direction Detection
+
+## Prompt
+
+Requested detection of candidate head direction to determine whether the user
+is facing the interview screen.
+
+## What it produced / how we used it
+
+Implemented landmark-based head direction estimation using MediaPipe facial
+landmarks.
+
+Current supported states include:
+
+- CENTER
+- LEFT
+- RIGHT
+- UP
+- DOWN
+- NO_FACE
+
+This provides the foundation for future interview attention monitoring.
+
+---
+
+# Attention Monitoring Prototype
+
+## Prompt
+
+Requested an interview monitoring prototype capable of tracking repeated
+attention loss.
+
+## What it produced / how we used it
+
+Implemented the first-stage monitoring logic including:
+
+- warning counter
+- direction monitoring
+- interview block state
+- cooldown timer between warnings
+
+This forms the base for future automated interview supervision features.
+
+---
+
+# Speech-enabled Interview Experience
+
+## Prompt
+
+Requested a more realistic interview experience where interviewer questions are
+spoken aloud.
+
+## What it produced / how we used it
+
+Integrated browser Speech Synthesis to read interviewer questions automatically,
+making the interaction closer to a real interview.
+
+---
+
+# Deployment Debugging
+
+## Prompt
+
+Provided deployment errors occurring only in production and requested diagnosis.
+
+## What it produced / how we used it
+
+Resolved multiple deployment issues involving:
+
+- Vercel routing
+- Render environment variables
+- API configuration
+- frontend deployment
+- backend connectivity
+
+resulting in a stable deployed application.
+
+---
+
+# Technologies Used with AI Assistance
+
+- Google Gemini API
+- React
+- Vite
+- Express.js
+- Tailwind CSS
+- Framer Motion
+- Zustand
+- MediaPipe Tasks Vision
+- Speech Synthesis API
+- Node.js
+
+---
+
+# Development Workflow
+
+AI assistance was primarily used for:
+
+- architecture planning
+- implementation guidance
+- debugging
+- deployment troubleshooting
+- prompt engineering
+- UI refinement
+
+while all code integration, testing, deployment, verification, and iterative
+debugging were completed throughout development.
