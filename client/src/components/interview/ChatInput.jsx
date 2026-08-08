@@ -1,24 +1,35 @@
-import { useRef, useState } from 'react';
-import { SendHorizontal } from 'lucide-react';
+import { useRef, useState } from "react";
+import { SendHorizontal, Mic, Square } from "lucide-react";
+import useSpeechRecognition from "../../hooks/useSpeechRecognition";
 
 /**
  * Auto-growing textarea. Enter sends, Shift+Enter adds a newline.
  * Disabled while the interviewer is "thinking" or the interview is complete.
  */
 export default function ChatInput({ onSend, disabled }) {
-  const [value, setValue] = useState('');
+  const {
+    supported: micSupported,
+    listening,
+    start,
+    stop,
+  } = useSpeechRecognition({
+    onResult: (transcript) => {
+      setValue((prev) => (prev ? `${prev} ${transcript}` : transcript));
+    },
+  });
+  const [value, setValue] = useState("");
   const ref = useRef(null);
 
   const submit = () => {
     const text = value.trim();
     if (!text || disabled) return;
     onSend(text);
-    setValue('');
-    if (ref.current) ref.current.style.height = 'auto';
+    setValue("");
+    if (ref.current) ref.current.style.height = "auto";
   };
 
   const onKeyDown = (e) => {
-    if (e.key === 'Enter' && !e.shiftKey) {
+    if (e.key === "Enter" && !e.shiftKey) {
       e.preventDefault();
       submit();
     }
@@ -28,7 +39,7 @@ export default function ChatInput({ onSend, disabled }) {
     setValue(e.target.value);
     const el = ref.current;
     if (el) {
-      el.style.height = 'auto';
+      el.style.height = "auto";
       el.style.height = `${Math.min(el.scrollHeight, 160)}px`;
     }
   };
@@ -43,9 +54,32 @@ export default function ChatInput({ onSend, disabled }) {
           onChange={onChange}
           onKeyDown={onKeyDown}
           disabled={disabled}
-          placeholder={disabled ? 'Please wait…' : 'Type your answer… (Enter to send, Shift+Enter for a new line)'}
+          placeholder={
+            disabled
+              ? "Please wait…"
+              : "Type your answer… (Enter to send, Shift+Enter for a new line)"
+          }
           className="max-h-40 flex-1 resize-none rounded-2xl border border-slate-200 bg-white px-4 py-3 text-[15px] leading-relaxed text-slate-800 placeholder:text-slate-400 focus:border-brand-400 focus:outline-none focus:ring-2 focus:ring-brand-100 disabled:bg-slate-50"
         />
+        {micSupported && (
+          <button
+            type="button"
+            onClick={listening ? stop : start}
+            disabled={disabled}
+            aria-label={listening ? "Stop recording" : "Speak your answer"}
+            className={`flex h-11 w-11 shrink-0 items-center justify-center rounded-2xl border transition disabled:cursor-not-allowed disabled:opacity-50 ${
+              listening
+                ? "border-red-300 bg-red-50 text-red-600 animate-pulse"
+                : "border-slate-200 bg-white text-slate-500 hover:bg-slate-50"
+            }`}
+          >
+            {listening ? (
+              <Square className="h-4 w-4" />
+            ) : (
+              <Mic className="h-5 w-5" />
+            )}
+          </button>
+        )}
         <button
           type="button"
           onClick={submit}

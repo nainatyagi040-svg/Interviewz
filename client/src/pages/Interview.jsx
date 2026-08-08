@@ -1,14 +1,16 @@
-import CameraFeed from "../components/interview/CameraFeed";
-import { useMemo } from "react";
-import { Link } from "react-router-dom";
+import { useEffect, useMemo, useRef } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import { Repeat, X } from "lucide-react";
+import CameraFeed from "../components/interview/CameraFeed";
+import useSpeechSynthesis from "../hooks/useSpeechSynthesis";
 import { useInterviewStore } from "../store/interviewStore.js";
 import { BRAND } from "../lib/constants.js";
 import CandidatePicker from "../components/interview/CandidatePicker.jsx";
 import ChatTranscript from "../components/interview/ChatTranscript.jsx";
 import ChatInput from "../components/interview/ChatInput.jsx";
 import FeedbackScreen from "../components/interview/FeedbackScreen.jsx";
+import AnimatedBackground from "../components/ui/AnimatedBackground.jsx";
+import FloatingSparkles from "../components/ui/FloatingSparkles.jsx";
 
 export default function Interview() {
   const {
@@ -23,18 +25,27 @@ export default function Interview() {
     reset,
   } = useInterviewStore();
 
-  // Client-side progress: number of interviewer questions asked so far.
+  const { speak } = useSpeechSynthesis();
+  const spokenCountRef = useRef(0);
+
+  useEffect(() => {
+    const interviewerMsgs = messages.filter((m) => m.role === "interviewer");
+    if (interviewerMsgs.length > spokenCountRef.current) {
+      const latest = interviewerMsgs[interviewerMsgs.length - 1];
+      speak(latest?.content);
+      spokenCountRef.current = interviewerMsgs.length;
+    }
+  }, [messages, speak]);
+
   const questionCount = useMemo(
     () => messages.filter((m) => m.role === "interviewer").length,
     [messages],
   );
 
-  // 1) No candidate chosen yet → picker.
   if (!candidate) {
     return <CandidatePicker onSelect={startInterview} />;
   }
 
-  // 3) Completed → feedback screen.
   if (status === "complete") {
     return (
       <FeedbackScreen
@@ -45,12 +56,12 @@ export default function Interview() {
     );
   }
 
-  // 2) Live interview (in_progress | loading | error).
   const member = candidate.member ?? {};
   return (
-    <div className="flex h-screen flex-col bg-slate-50/60">
+    <div className="relative flex h-screen flex-col bg-slate-50/60">
+      <AnimatedBackground />
+      <FloatingSparkles />
       <CameraFeed />
-      {/* Interview header */}
       <header className="border-b border-slate-200/80 bg-white/80 backdrop-blur">
         <div className="mx-auto flex max-w-3xl items-center gap-3 px-4 py-3 sm:px-6">
           <span className="flex h-9 w-9 items-center justify-center rounded-lg bg-brand-600 text-white">
