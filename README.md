@@ -1,129 +1,269 @@
-# Loop — AI Interview Agent
+# Interviewz — AI Mock Interview Platform
 
-Loop is a full-stack AI interviewer that reads a learner's real cohort progress (a 31-day AI
-engineering curriculum) and runs a live, adaptive technical interview — real follow-ups, not a
-quiz — then returns structured feedback.
+Interviewz is a full-stack AI-powered mock interview platform that simulates realistic technical interviews using Google's Gemini AI.
 
-🔗 **Live app:** https://interviewz-three.vercel.app
+Instead of asking fixed questions, the interviewer dynamically generates contextual follow-up questions based on the candidate's previous responses, creating a conversational interview experience similar to real technical interviews.
 
-- **`client/`** — React + Vite + Tailwind. YC-style landing page and the interview experience
-  (candidate picker → live chat → animated feedback).
-- **`server/`** — Express + Google Gemini + Supabase. Stateless HTTP contract with
-  server-side session state.
+The platform also includes live camera preview, face detection, head-direction monitoring, speech synthesis, animated UI, and structured AI-generated interview feedback.
 
-## Features
+🔗 **Live Demo:** https://interviewz-three.vercel.app
 
-- **Personalized targeting** — questions are chosen from the candidate's actual mission history
-  (struggled topics, skipped days, first-try passes on high-signal modules), covering at least
-  4 distinct curriculum days across a minimum of 8 questions.
-- **Real adaptive follow-ups** — every next question is generated from what the candidate just
-  said, not a pre-scripted tree.
-- **Structured feedback** — a final summary with strengths, gaps, and concrete next steps,
-  rendered as designed UI, not raw JSON.
-- **Fails gracefully, never hard-fails** — if the model API is slow or unreachable, the server
-  falls back to a curriculum-derived question instead of erroring out.
+---
 
-## Architecture at a glance
+# Features
 
-1. **Client (React)** sends `POST /api/interview` to the server
-2. **Server (Express)** routes the request to three parts:
-   - `interviewAgent` — question targeting, prompt building, state machine
-   - `sessionStore` — Supabase table for session state
-   - `geminiClient` — Gemini calls with retry, timeout, and curriculum fallback
+### 🤖 AI Interview
 
-The frontend holds no interview logic. It sends `{ sessionId, candidate }` on the first turn and
-`{ sessionId, message }` on every turn after. The server owns question count, phase, and the
-completion decision, and replies with `{ reply, done, feedback? }`.
+- AI-powered interviewer using Google Gemini
+- Dynamic follow-up questions
+- Candidate-specific interview flow
+- Context-aware conversations
+- Adaptive questioning strategy
+- Minimum interview question flow before completion
 
-## Tech stack
+---
 
-| Layer | Tech |
-| --- | --- |
+### 👤 Candidate Management
+
+- Candidate profile selection
+- Personalized interview targeting
+- Curriculum-based question selection
+- Mission history analysis
+
+---
+
+### 🎤 AI Feedback
+
+- Interview summary
+- Strengths
+- Improvement areas
+- Recommended next steps
+- Structured feedback cards
+
+---
+
+### 🎥 Camera Monitoring
+
+- Live camera preview
+- Browser-based camera access
+- Face detection
+- Head direction detection
+- Face presence monitoring
+- Interview attention monitoring prototype
+- Warning counter foundation
+
+---
+
+### 🔊 Speech Features
+
+- AI interviewer speech synthesis
+- Automatic question narration
+
+---
+
+### ✨ Modern UI
+
+- Animated landing page
+- Floating sparkles
+- Animated gradients
+- Framer Motion transitions
+- Responsive design
+- Modern interview interface
+
+---
+
+# Project Architecture
+
+```
+Interviewz
+│
+├── client
+│   ├── components
+│   ├── hooks
+│   ├── pages
+│   ├── store
+│   ├── utils
+│   └── data
+│
+└── server
+    ├── routes
+    ├── services
+    ├── validation
+    ├── config
+    ├── logger
+    └── data
+```
+
+---
+
+# Interview Flow
+
+```
+Candidate Selection
+        │
+        ▼
+Start Interview
+        │
+        ▼
+Gemini Generates Question
+        │
+        ▼
+Candidate Response
+        │
+        ▼
+Context-aware Follow-up
+        │
+        ▼
+Interview Complete
+        │
+        ▼
+AI Feedback Generation
+```
+
+---
+
+# Tech Stack
+
+| Layer | Technology |
+|--------|------------|
 | Frontend | React, Vite, Tailwind CSS |
-| Backend | Node.js, Express |
-| AI model | Google Gemini (`gemini-3.5-flash`) |
-| Database | Supabase (Postgres) — session state |
-| Hosting | Vercel (frontend), Render (backend) |
+| Backend | Node.js, Express.js |
+| AI | Google Gemini 3.5 Flash |
+| State Management | Zustand |
+| Animation | Framer Motion |
+| Camera | MediaPipe Tasks Vision |
+| Icons | Lucide React |
+| Speech | Web Speech API |
+| Deployment | Vercel + Render |
 
-## Prerequisites
+---
 
-- Node.js 18+ (the server uses the global `fetch` and Web Crypto).
-- A Google Gemini API key (free tier — no billing required, from [aistudio.google.com](https://aistudio.google.com/app/apikey)).
-- A Supabase project (URL + service role key).
+# AI Features
 
-## 1. Backend setup (`server/`)
+- Dynamic Interview Generation
+- Context-aware Follow-up Questions
+- Candidate-specific Prompt Engineering
+- AI Feedback Generation
+- Adaptive Conversation Flow
+- Interview State Management
+- Curriculum-aware Question Selection
+
+---
+
+# Camera & Presence Detection
+
+The interview interface includes browser-based camera monitoring.
+
+Current implementation includes:
+
+- Live Camera Preview
+- Face Detection
+- Head Direction Detection
+- Face Presence Detection
+- Warning Counter Prototype
+
+The camera stream is processed locally inside the browser and is **not uploaded or stored**.
+
+---
+
+# Installation
+
+## Backend
 
 ```bash
 cd server
-cp .env.example .env      # then fill in the values (see below)
 npm install
+npm run dev
 ```
 
-Fill `server/.env`:
+Create a `.env` file:
 
-| Variable | Purpose |
-| --- | --- |
-| `GEMINI_API_KEY` | Google Gemini API key. Without it, the server falls back to curriculum-derived questions. |
-| `GEMINI_MODEL` | Model id (defaults to `gemini-3.5-flash`). |
-| `SUPABASE_URL` | Supabase project URL. |
-| `SUPABASE_SERVICE_KEY` | Service role key (server-side only — never ship to the client). |
-| `FRONTEND_URL` | Allowed CORS origin(s), comma-separated. E.g. `http://localhost:5173`. |
-| `PORT` | Defaults to `5000`. |
-
-Create the session table by running `server/db/schema.sql` in the Supabase SQL editor.
-
-Then:
-
-```bash
-npm run dev      # or: npm start
+```env
+GEMINI_API_KEY=YOUR_API_KEY
+GEMINI_MODEL=gemini-3.5-flash
+PORT=5000
+FRONTEND_URL=http://localhost:5173
 ```
 
-Health check: `GET http://localhost:5000/api/health`.
+---
 
-## 2. Real data
-
-Placeholder `candidates.json` and `curriculum.json` ship in `server/src/data/` (and a copy of
-`candidates.json` in `client/src/data/`) so the app runs immediately. Replace them with the real
-cohort files, keeping the same shape. If you change the candidate list, update **both** copies.
-
-## 3. Frontend setup (`client/`)
+## Frontend
 
 ```bash
 cd client
-cp .env.example .env      # set VITE_API_URL to the backend URL
 npm install
-npm run dev               # http://localhost:5173
+npm run dev
 ```
 
-## Resilience notes
+Create a `.env` file:
 
-- The Gemini call has a timeout, one retry, and a curriculum-based fallback question, so a slow or
-  failed model call never hangs or 500s the request.
-- The API client mirrors this: 25s timeout, one retry on transient errors, normalized error
-  objects, and defensive response-shape guarding.
-- The UI keeps the conversation intact on error and offers an inline **Retry**; a React error
-  boundary catches any render crash.
-
-## Security notes
-
-- `POST /api/interview` is intentionally **unauthenticated** per the challenge spec. CORS is
-  restricted to `FRONTEND_URL` and the endpoint is rate-limited per IP to compensate. Do not expose
-  this publicly without adding auth.
-- The Supabase **service role key** stays server-side only.
-
-## Live deployment
-
-- Frontend: https://interviewz-three.vercel.app
-- Backend: https://interviewz-backend.onrender.com
-
-## AI usage
-
-This project was built with AI assistance throughout — see [`PROMPTS.md`](./PROMPTS.md) for the
-full log of prompts and how they were used.
-
-## Production build
-
-```bash
-cd client && npm run build     # outputs client/dist
-cd server && npm start         # serve behind your platform of choice
+```env
+VITE_API_URL=http://localhost:5000
 ```
+
+---
+
+# Deployment
+
+### Frontend
+
+Vercel
+
+https://interviewz-three.vercel.app
+
+### Backend
+
+Render
+
+https://interviewz-backend.onrender.com
+
+---
+
+# AI Usage
+
+The project was developed with AI-assisted planning, implementation, debugging, deployment support, prompt engineering, and UI refinement.
+
+Detailed prompt history is available in:
+
+```
+PROMPTS.md
+```
+
+---
+
+# Future Improvements
+
+- Voice-based candidate responses
+- Multiple face detection
+- Eye gaze tracking
+- Automatic interview termination
+- Interview analytics dashboard
+- Admin panel
+- Interview history
+- Performance analytics
+
+---
+
+# Screenshots
+
+- Landing Page
+- Candidate Selection
+- Live AI Interview
+- Camera Preview
+- Interview Feedback
+
+---
+
+# License
+
+MIT License
+
+---
+
+# Author
+
+**Naina Tyagi**
+
+GitHub: https://github.com/nainatyagi040-svg
+
+LinkedIn: https://www.linkedin.com/in/nainatyagighaziabad
