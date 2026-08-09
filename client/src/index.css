@@ -6,8 +6,11 @@
   html {
     scroll-behavior: smooth;
   }
+
   body {
-    @apply bg-white text-slate-900 antialiased;
+    @apply antialiased;
+    background-color: #05060f;
+    color: #d1e4fa;
     font-feature-settings: "cv11", "ss01";
   }
 }
@@ -16,17 +19,26 @@
   .container-tight {
     @apply mx-auto w-full max-w-6xl px-5 sm:px-8;
   }
+
+  /* Ice → Blueprint headline gradient — the design-system display treatment. */
   .text-gradient {
-    @apply bg-gradient-to-br from-brand-600 via-brand-500 to-indigo-400 bg-clip-text text-transparent;
+    background-image: linear-gradient(180deg, #d8ecf8 0%, #b6d9fc 55%, #98c0ef 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
   }
+
   /* Animated typing dots for the interviewer "thinking" state. */
   .typing-dot {
-    @apply inline-block h-2 w-2 rounded-full bg-slate-400;
+    @apply inline-block h-2 w-2 rounded-full;
+    background-color: #c7d3ea;
     animation: typing 1.2s infinite ease-in-out;
   }
+
   .typing-dot:nth-child(2) {
     animation-delay: 0.15s;
   }
+
   .typing-dot:nth-child(3) {
     animation-delay: 0.3s;
   }
@@ -39,6 +51,7 @@
     transform: translateY(0);
     opacity: 0.4;
   }
+
   30% {
     transform: translateY(-4px);
     opacity: 1;
@@ -49,11 +62,13 @@
 .chat-input {
   field-sizing: content;
 }
+
 @keyframes slideUp {
   from {
     opacity: 0;
     transform: translateY(14px) scale(0.98);
   }
+
   to {
     opacity: 1;
     transform: translateY(0) scale(1);
