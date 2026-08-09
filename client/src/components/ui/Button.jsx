@@ -12,17 +12,17 @@ const MotionAnchor = motion.a;
  * values so the component is self-contained during the incremental migration.
  */
 const base =
-  "relative inline-flex items-center justify-center gap-2 overflow-hidden rounded-full font-semibold transition-all duration-300 ease-[cubic-bezier(0.16,1,0.3,1)] focus:outline-none focus-visible:ring-2 focus-visible:ring-[#663af3]/70 focus-visible:ring-offset-2 focus-visible:ring-offset-[#05060f] disabled:cursor-not-allowed disabled:opacity-60";
+  "relative inline-flex items-center justify-center gap-2 overflow-hidden rounded-[28px] font-medium transition-all duration-200 ease-out active:translate-y-[2px] active:scale-[0.96] focus:outline-none focus-visible:ring-2 focus-visible:ring-[#14140f] focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-60";
 
 const variants = {
   primary:
-    "bg-[#663af3] text-white shadow-[inset_0_1px_0_rgba(255,255,255,0.22),0_8px_30px_rgba(102,58,243,0.40)] hover:bg-[#7248f6] hover:shadow-[inset_0_1px_0_rgba(255,255,255,0.28),0_12px_44px_rgba(102,58,243,0.60)]",
+    "bg-[#beff50] text-[#14140f] hover:bg-[#aef238]",
 
   secondary:
-    "border border-[rgba(186,215,247,0.16)] bg-[rgba(199,211,234,0.06)] text-[#d1e4fa] backdrop-blur-xl shadow-[inset_0_1px_0_rgba(216,236,248,0.14)] hover:bg-[rgba(199,211,234,0.12)] hover:border-[rgba(186,215,247,0.30)]",
+    "border border-[#14140f] bg-transparent text-[#14140f] hover:bg-[#f5f5eb] rounded-full",
 
   ghost:
-    "text-[#c7d3ea] hover:bg-white/[0.06] hover:text-[#d8ecf8]",
+    "text-[#14140f] hover:underline",
 };
 
 const sizes = {
@@ -33,16 +33,17 @@ const sizes = {
 
 const hoverAnimation = {
   whileHover: {
-    y: -2,
-    scale: 1.03,
+    y: -3,
+    scale: 1.025,
   },
   whileTap: {
-    scale: 0.97,
+    y: 1,
+    scale: 0.95,
   },
   transition: {
     type: "spring",
-    stiffness: 350,
-    damping: 18,
+    stiffness: 500,
+    damping: 22,
   },
 };
 
@@ -61,9 +62,7 @@ export default function Button({
   } ${sizes[size] ?? sizes.md} ${className}`;
 
   // Frosted light-sweep sheen that glides across on hover.
-  const Glow = (
-    <span className="pointer-events-none absolute inset-0 rounded-full bg-gradient-to-r from-white/12 via-transparent to-white/12 opacity-0 transition-opacity duration-500 group-hover:opacity-100" />
-  );
+  const Glow = null;
 
   if (as === "link" && to) {
     return (

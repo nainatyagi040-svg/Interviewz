@@ -83,7 +83,7 @@ export default function FeedbackScreen({ feedback, candidate, onRestart }) {
       : "The interview is complete. A detailed summary was not available, but the conversation covered several core topics from the cohort.";
 
   return (
-    <div className="relative min-h-screen" style={{ background: "#05060f" }}>
+    <div className="interview-page relative min-h-screen" style={{ background: "#f9fbf2" }}>
       <AnimatedBackground />
       <FloatingSparkles />
       <div className="container-tight relative py-12 sm:py-16">

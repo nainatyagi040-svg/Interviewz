@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import { Repeat } from "lucide-react";
+import { CircleDot, Moon, Sun } from "lucide-react";
 import { motion } from "framer-motion";
 import Button from "../ui/Button.jsx";
 import { BRAND } from "../../lib/constants.js";
@@ -11,7 +11,7 @@ const C = {
   ice: "#d8ecf8",
   frost: "#d1e4fa",
   moon: "#c7d3ea",
-  violet: "#663af3",
+  violet: "#beff50",
 };
 
 const DISPLAY_FONT =
@@ -19,6 +19,12 @@ const DISPLAY_FONT =
 
 export default function Nav() {
   const [scrolled, setScrolled] = useState(false);
+  const [dark, setDark] = useState(() => localStorage.getItem("loop-theme") === "dark");
+
+  useEffect(() => {
+    document.documentElement.classList.toggle("dark", dark);
+    localStorage.setItem("loop-theme", dark ? "dark" : "light");
+  }, [dark]);
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 8);
@@ -33,7 +39,7 @@ export default function Nav() {
       initial={{ y: -70 }}
       animate={{ y: 0 }}
       transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
-      className="sticky top-0 z-50 transition-all duration-500"
+      className="sticky top-4 z-50 mx-4 transition-all duration-500 sm:mx-8 lg:mx-12"
       style={
         scrolled
           ? {
@@ -44,7 +50,7 @@ export default function Nav() {
               boxShadow:
                 "rgba(216,236,248,0.14) 0px 1px 0px 0px inset, rgba(6,6,14,0.45) 0px 12px 32px 0px",
             }
-          : { background: "transparent" }
+          : { background: "#f5f5eb" }
       }
     >
       {/* Light-catching hairline along the bottom edge when scrolled */}
@@ -58,24 +64,24 @@ export default function Nav() {
         />
       )}
 
-      <nav className="container-tight flex h-16 items-center justify-between">
+      <nav className="mx-auto flex h-16 max-w-[1200px] items-center justify-between rounded-[24px] border border-[#14140f] bg-[#f5f5eb] px-4 sm:px-6">
         <Link to="/" className="group flex items-center gap-3">
           <motion.div
             whileHover={{ rotate: 180, scale: 1.12 }}
             transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
-            className="flex h-10 w-10 items-center justify-center rounded-xl text-white"
+            className="flex h-10 w-10 items-center justify-center rounded-full text-[#14140f]"
             style={{
-              background: C.violet,
+              background: "#beff50",
               boxShadow:
-                "rgba(255,255,255,0.18) 0px 1px 0px 0px inset, 0 0 22px rgba(102,58,243,0.45)",
+                "none",
             }}
           >
-            <Repeat className="h-5 w-5" />
+            <CircleDot className="h-5 w-5" strokeWidth={2.5} />
           </motion.div>
 
           <span
             className="text-xl font-medium tracking-tight transition-colors duration-300"
-            style={{ fontFamily: DISPLAY_FONT, color: C.ice }}
+            style={{ fontFamily: "'Space Grotesk', sans-serif", color: "#14140f" }}
           >
             {BRAND.name}
           </span>
@@ -85,15 +91,19 @@ export default function Nav() {
           <a
             href="#how-it-works"
             className="hidden rounded-lg px-4 py-2 text-sm font-medium transition-all duration-300 hover:bg-white/[0.06] sm:block"
-            style={{ color: C.moon }}
+            style={{ color: "#6e6e64" }}
           >
             How it works
           </a>
 
+          <button type="button" aria-label={dark ? "Switch to light mode" : "Switch to dark mode"} onClick={() => setDark((value) => !value)} className="inline-flex h-9 w-9 items-center justify-center rounded-full border border-[#d2d2c8] text-[#14140f] transition hover:bg-[#beff50]">
+            {dark ? <Sun className="h-4 w-4" /> : <Moon className="h-4 w-4" />}
+          </button>
+
           <a
             href="#features"
             className="hidden rounded-lg px-4 py-2 text-sm font-medium transition-all duration-300 hover:bg-white/[0.06] sm:block"
-            style={{ color: C.moon }}
+            style={{ color: "#6e6e64" }}
           >
             Features
           </a>
@@ -104,5 +114,18 @@ export default function Nav() {
         </div>
       </nav>
     </motion.header>
+  );
+}
+
+export function ThemeToggle({ className = "" }) {
+  const [dark, setDark] = useState(() => localStorage.getItem("loop-theme") === "dark");
+  useEffect(() => {
+    document.documentElement.classList.toggle("dark", dark);
+    localStorage.setItem("loop-theme", dark ? "dark" : "light");
+  }, [dark]);
+  return (
+    <button type="button" aria-label={dark ? "Switch to light mode" : "Switch to dark mode"} onClick={() => setDark((value) => !value)} className={`theme-toggle inline-flex h-9 w-9 items-center justify-center rounded-full border border-[#d2d2c8] text-[#14140f] transition hover:bg-[#beff50] ${className}`}>
+      {dark ? <Sun className="h-4 w-4" /> : <Moon className="h-4 w-4" />}
+    </button>
   );
 }

@@ -1,6 +1,123 @@
+@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500&display=swap');
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+:root {
+  --color-deep-ink: #14140f;
+  --color-hi-yellow: #beff50;
+  --color-moss-green: #59e25d;
+  --color-fuchsia: #e261e5;
+  --color-slate: #5f5c6e;
+  --color-canvas: #ffffff;
+  --color-soft-meadow: #f5f5eb;
+  --font-otsono: 'Space Grotesk', Inter, ui-sans-serif, system-ui, sans-serif;
+}
+
+html { color-scheme: light; }
+html.dark { color-scheme: dark; }
+
+html.dark body,
+html.dark .landing-page { background: #0d0f0b !important; color: #f5f5eb !important; }
+html.dark .interview-page,
+html.dark #root { background: #0d0f0b !important; color: #f5f5eb !important; }
+html.dark .interview-page header { background: rgba(16,18,13,.94) !important; border-color: #3a3e33 !important; }
+html.dark .interview-page [style*="background: #f9fbf2"],
+html.dark [style*="background: #f9fbf2"] { background: #0d0f0b !important; }
+html.dark .interview-page [style*="background: #ffffff"],
+html.dark .interview-page [class*="bg-white"] { background: #181b14 !important; }
+html.dark .interview-page [style*="background: #f5f5eb"] { background: #252a20 !important; }
+html.dark .interview-page [class*="text-[#14140f]"],
+html.dark .interview-page [class*="text-[#d8ecf8]"],
+html.dark .interview-page [class*="text-[#d1e4fa]"] { color: #f5f5eb !important; }
+html.dark .interview-page [class*="text-[#6e6e64]"],
+html.dark .interview-page [class*="text-[#9da7ba]"],
+html.dark .interview-page [class*="text-[#5f5c6e]"] { color: #b9bdaf !important; }
+html.dark .interview-page [class*="border-[#d2d2c8]"],
+html.dark .interview-page [class*="border-"] { border-color: #3a3e33 !important; }
+html.dark .interview-page [style*="background: #f9fbf2"] { background: #0d0f0b !important; }
+html.dark .interview-page [style*="background: rgba(199,211,234"] { background: #181b14 !important; }
+html.dark .interview-page [class*="text-[#c7d3ea]"],
+html.dark .interview-page [class*="text-[#d8ecf8]"],
+html.dark .interview-page [class*="text-[#d1e4fa]"] { color: #f5f5eb !important; }
+html.dark .interview-page [class*="text-[#9da7ba]"] { color: #b9bdaf !important; }
+html.dark .interview-page input,
+html.dark .interview-page textarea { background: #181b14 !important; color: #f5f5eb !important; border-color: #3a3e33 !important; }
+html.dark .theme-toggle { background: #181b14 !important; border-color: #59654b !important; color: #f5f5eb !important; }
+html.dark .theme-toggle:hover { background: #beff50 !important; color: #14140f !important; }
+html.dark .landing-page header,
+html.dark .landing-page nav { background: rgba(16,18,13,.94) !important; border-color: #3a3e33 !important; }
+html.dark .landing-page main section { background-color: #0d0f0b !important; }
+html.dark .landing-page main section:nth-of-type(even) { background-color: #13160f !important; }
+html.dark .landing-page h1,
+html.dark .landing-page h2,
+html.dark .landing-page h3,
+html.dark .landing-page nav span,
+html.dark .landing-page nav a,
+html.dark .landing-page nav button { color: #f5f5eb !important; }
+html.dark .landing-page p { color: #b9bdaf !important; }
+html.dark .landing-page article,
+html.dark .landing-page main [class*="bg-white"],
+html.dark .landing-page main [style*="background: #ffffff"] { background: #181b14 !important; border-color: #3a3e33 !important; color: #f5f5eb !important; }
+html.dark .landing-page main [class*="bg-[#f5f5eb]"],
+html.dark .landing-page main [style*="background: #f5f5eb"] { background: #23271d !important; color: #f5f5eb !important; }
+html.dark .landing-page [class*="text-[#14140f]"],
+html.dark .landing-page [style*="color: #14140f"] { color: #f5f5eb !important; }
+html.dark .landing-page [class*="text-[#5f5c6e]"],
+html.dark .landing-page [class*="text-[#6e6e64]"] { color: #b9bdaf !important; }
+html.dark .landing-page [class*="border-[#d2d2c8]"] { border-color: #3a3e33 !important; }
+html.dark .landing-page .bg-\[\#beff50\],
+html.dark .landing-page [style*="background: #beff50"] { background: #beff50 !important; color: #14140f !important; }
+html.dark .landing-page .bg-\[\#beff50\] span,
+html.dark .landing-page [style*="background: #beff50"] span,
+html.dark .landing-page [style*="background: #beff50"] svg { color: #14140f !important; }
+
+.hero-bottom-fade { background: linear-gradient(to top, #f5f5eb, transparent); }
+html.dark .hero-bottom-fade { background: linear-gradient(to top, #0d0f0b, transparent); }
+
+html.dark .landing-page .lime-surface,
+html.dark .landing-page .lime-surface p,
+html.dark .landing-page .lime-surface span,
+html.dark .landing-page .lime-surface svg { color: #14140f !important; }
+html.dark .landing-page .lime-surface { background: #beff50 !important; border-color: #14140f !important; }
+
+html.dark .landing-page .final-cta-card {
+  background: #181b14 !important;
+  border-color: #3a3e33 !important;
+  box-shadow: 0 24px 60px rgba(0,0,0,.22) !important;
+}
+html.dark .landing-page .final-cta-card h2 { color: #f5f5eb !important; }
+html.dark .landing-page .final-cta-card p { color: #b9bdaf !important; }
+
+html.dark .landing-page .interview-mock-card {
+  background: #181b14 !important;
+  border-color: #41483a !important;
+  box-shadow: 0 30px 70px rgba(0,0,0,.4), 0 8px 24px rgba(0,0,0,.25) !important;
+}
+html.dark .landing-page .interview-mock-card [class*="text-[#14140f]"] { color: #f5f5eb !important; }
+html.dark .landing-page .interview-mock-card [style*="background: #f5f5eb"] {
+  background: #252a20 !important;
+  border-color: #41483a !important;
+  color: #f5f5eb !important;
+}
+html.dark .landing-page .interview-mock-card [style*="background: #beff50"] { color: #14140f !important; }
+html.dark .landing-page .interview-mock-card .border-\[\#d2d2c8\] { border-color: #41483a !important; }
+
+html.dark .landing-page .hero-floating-chip {
+  background: #1b2016 !important;
+  border-color: #59654b !important;
+  box-shadow: 0 20px 45px rgba(0,0,0,.42), inset 0 1px 0 rgba(255,255,255,.08) !important;
+}
+html.dark .landing-page .hero-floating-chip p { color: #d5dbc9 !important; }
+html.dark .landing-page .hero-floating-chip .floating-chip-label {
+  color: #14140f !important;
+  background: #beff50 !important;
+  border-color: #beff50 !important;
+}
+
+@media (max-width: 1023px) {
+  .hero-floating-chips { display: none !important; }
+}
 
 @layer base {
   html {
@@ -9,10 +126,13 @@
 
   body {
     @apply antialiased;
-    background-color: #05060f;
-    color: #d1e4fa;
+    background-color: #ffffff;
+    color: #14140f;
     font-feature-settings: "cv11", "ss01";
+    font-family: var(--font-otsono);
   }
+
+  h1, h2, h3 { font-family: var(--font-otsono) !important; font-weight: 500 !important; letter-spacing: -.03em !important; }
 }
 
 @layer utilities {
@@ -22,16 +142,16 @@
 
   /* Ice → Blueprint headline gradient — the design-system display treatment. */
   .text-gradient {
-    background-image: linear-gradient(180deg, #d8ecf8 0%, #b6d9fc 55%, #98c0ef 100%);
+    background-image: none;
     -webkit-background-clip: text;
     background-clip: text;
-    color: transparent;
+    color: #130e30;
   }
 
   /* Animated typing dots for the interviewer "thinking" state. */
   .typing-dot {
     @apply inline-block h-2 w-2 rounded-full;
-    background-color: #c7d3ea;
+    background-color: #14140f;
     animation: typing 1.2s infinite ease-in-out;
   }
 
@@ -73,4 +193,93 @@
     opacity: 1;
     transform: translateY(0) scale(1);
   }
+}
+
+.garden-blobs { display: none; position: absolute; inset: 0; overflow: hidden; pointer-events: none; }
+.garden-blobs::before, .garden-blobs::after { content: ""; position: absolute; border-radius: 45% 55% 60% 40% / 52% 38% 62% 48%; }
+.garden-blobs::before { width: 360px; height: 290px; right: 3%; top: 8%; background: #59e25d; transform: rotate(18deg); }
+.garden-blobs::after { width: 300px; height: 245px; right: 20%; top: 18%; background: #e261e5; transform: rotate(-22deg); }
+
+/* Translate legacy component inline colors into the Ditto light system. */
+[style*="#05060f"], [style*="rgba(5,6,15"] { background: #ffffff !important; }
+[style*="#d1e4fa"], [style*="#d8ecf8"], [style*="#c7d3ea"], [style*="#9da7ba"] { color: #130e30 !important; }
+[style*="#663af3"] { background: #beff50 !important; color: #14140f !important; border-color: #beff50 !important; }
+[style*="rgba(199,211,234"] { background: #f5f5eb !important; }
+[style*="rgba(186,215,247"] { border-color: rgba(19,14,48,.14) !important; }
+[style*="rgba(102,58,243"] { background: #beff50 !important; color: #14140f !important; }
+.rounded-\[16px\], .rounded-2xl, .rounded-xl { border-radius: 24px !important; }
+
+body { font-size: 16px; line-height: 1.5; }
+h1,h2,h3 { font-family: var(--font-otsono) !important; font-weight: 500 !important; letter-spacing: -.03em !important; }
+h1 { font-size: clamp(3.5rem, 8vw, 6.5rem) !important; line-height: .9 !important; }
+h2 { font-size: clamp(2rem, 4vw, 3.75rem) !important; line-height: 1 !important; }
+h3 { font-size: 1.75rem !important; line-height: 1.12 !important; }
+[class*="rounded-[16px]"], [class*="rounded-2xl"], [class*="rounded-xl"] { border-radius: 28px !important; }
+[class*="border-"] { border-color: #d2d2c8 !important; }
+[class*="shadow-"] { box-shadow: none !important; }
+.bg-\[\#beff50\]:hover, [style*="#beff50"]:hover { filter: saturate(1.08) brightness(.98); }
+.bg-\[\#beff50\]:active, [style*="#beff50"]:active { filter: saturate(.95) brightness(.94); }
+footer { background: #14140f !important; color: #f5f5eb !important; border-color: #14140f !important; }
+footer p, footer a { color: #d2d2c8 !important; }
+footer span { color: #f5f5eb !important; }
+.garden-blobs { display: none !important; }
+main section { transform-style: preserve-3d; }
+main section > div { will-change: transform, opacity; }
+.scroll-progress { position: fixed; left: 0; top: 0; z-index: 70; height: 3px; width: calc(var(--scroll-progress, 0) * 100%); background: #beff50; pointer-events: none; transform-origin: left center; }
+
+/* Contrast-safe text colors on the new light surfaces. */
+[class*="text-[#d8ecf8]"], [class*="text-[#d1e4fa]"], [class*="text-[#c7d3ea]"] {
+  color: var(--color-deep-ink) !important;
+}
+[class*="text-[#9da7ba]"], [class*="text-[#5f5c6e]"] {
+  color: var(--color-slate) !important;
+}
+[class*="text-[#b6d9fc]"], [class*="text-[#c4b3fb]"], [class*="text-[#ffcf8f]"], [class*="text-[#f0d9b8]"] {
+  color: var(--color-deep-ink) !important;
+}
+.text-white { color: var(--color-deep-ink) !important; }
+[class*="bg-[#663af3]"] { background-color: var(--color-hi-yellow) !important; }
+
+/* Dark pills are the only inverted interface surface. */
+[class*="bg-[#130e30]"], [style*="background: #130e30"] { color: #fff !important; }
+[class*="bg-[#130e30]"] .text-white, [class*="bg-[#130e30]"] span, [class*="bg-[#130e30]"] svg,
+[style*="background: #130e30"] span, [style*="background: #130e30"] svg {
+  color: #fff !important;
+}
+
+input, textarea {
+  color: var(--color-deep-ink) !important;
+  background: #fff !important;
+}
+input::placeholder, textarea::placeholder {
+  color: var(--color-slate) !important;
+  opacity: 1;
+}
+.typing-dot { background-color: var(--color-deep-ink) !important; }
+
+/* Final premium minimal pass: tonal surfaces, editorial rhythm, and quiet motion. */
+header { background: rgba(255,255,255,.94) !important; border-color: #d2d2c8 !important; box-shadow: none !important; }
+main section:nth-of-type(even) { background: #f5f5eb; }
+main section > div { position: relative; }
+main section .container-tight { padding-top: 88px; padding-bottom: 88px; }
+main .rounded-\[24px\], main .rounded-\[16px\] { border-radius: 28px !important; }
+main [style*="rgba(5,6,15"] { background: #fff !important; border-color: #d2d2c8 !important; }
+main [style*="rgba(199,211,234"] { background: #f5f5eb !important; }
+main [style*="rgba(102,58,243"] { background: #beff50 !important; color: #14140f !important; }
+main [style*="#663af3"] { background: #beff50 !important; color: #14140f !important; }
+main [style*="#05060f"] { background: #fff !important; }
+.text-\[#d8ecf8\], .text-\[#d1e4fa\], .text-\[#c7d3ea\] { color: #14140f !important; }
+[class*="text-[#9da7ba]"] { color: #6e6e64 !important; }
+.text-\[#b6d9fc\], .text-\[#c4b3fb\] { color: #14140f !important; }
+.border-white\/10, .border-white\/\[0\.08\], .border-white\/\[0\.1\] { border-color: #d2d2c8 !important; }
+button:not(.bg-\[#beff50\]), a:not(.bg-\[#beff50\]) { transition: color .2s ease, background-color .2s ease, border-color .2s ease, transform .2s ease; }
+button:focus-visible, a:focus-visible, textarea:focus-visible { outline: 2px solid #14140f; outline-offset: 3px; }
+textarea { border-radius: 8px !important; border-color: #d2d2c8 !important; }
+
+@media (max-width: 640px) {
+  main section .container-tight { padding-top: 64px; padding-bottom: 64px; }
+  h1 { font-size: clamp(3.2rem, 17vw, 5rem) !important; }
+}
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; scroll-behavior: auto !important; }
 }

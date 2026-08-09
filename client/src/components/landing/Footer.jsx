@@ -1,4 +1,4 @@
-import { Repeat, Github } from 'lucide-react';
+import { CircleDot, Github } from 'lucide-react';
 import { BRAND } from '../../lib/constants.js';
 
 export default function Footer() {
@@ -18,12 +18,10 @@ export default function Footer() {
           <span
             className="flex h-7 w-7 items-center justify-center rounded-lg text-white"
             style={{
-              background: "#663af3",
-              boxShadow:
-                "inset 0 1px 0 rgba(255,255,255,0.2), 0 0 18px rgba(102,58,243,0.45)",
+              background: "#beff50",
             }}
           >
-            <Repeat className="h-3.5 w-3.5" />
+            <CircleDot className="h-3.5 w-3.5" strokeWidth={2.5} />
           </span>
           <span className="font-semibold">{BRAND.name}</span>
         </div>

@@ -1,18 +1,18 @@
 import { useEffect, useRef } from "react";
 import { motion } from "framer-motion";
-import { Sparkles, ArrowRight, Repeat, Gauge, Star } from "lucide-react";
+import { ArrowRight, CircleDot, Gauge, Star } from "lucide-react";
 import Button from "../ui/Button.jsx";
 
 /* ── Design-system palette (from /design-system) applied inline so the hero
    renders faithfully independent of the Tailwind token migration. ────────── */
 const C = {
-  canvas: "#05060f",
-  ice: "#d8ecf8",
-  frost: "#d1e4fa",
-  moon: "#c7d3ea",
-  fog: "#9da7ba",
-  violet: "#663af3",
-  blueprint: "#b6d9fc",
+  canvas: "#f5f5eb",
+  ice: "#14140f",
+  frost: "#14140f",
+  moon: "#6e6e64",
+  fog: "#6e6e64",
+  violet: "#beff50",
+  blueprint: "#14140f",
 };
 
 const DISPLAY_FONT =
@@ -46,9 +46,7 @@ function useSpotlight() {
     if (!el || !parent) return;
     const onMove = (e) => {
       const r = parent.getBoundingClientRect();
-      el.style.background = `radial-gradient(600px circle at ${
-        e.clientX - r.left
-      }px ${e.clientY - r.top}px, rgba(102,58,243,0.16), transparent 40%)`;
+      el.style.background = "transparent";
     };
     parent.addEventListener("mousemove", onMove);
     return () => parent.removeEventListener("mousemove", onMove);
@@ -59,22 +57,22 @@ function useSpotlight() {
 function FloatingChip({ icon: Icon, label, text, className, delay, rotate }) {
   return (
     <motion.div
-      className={`pointer-events-none absolute w-44 rounded-2xl border border-white/10 p-3 backdrop-blur-xl ${className}`}
-      style={{ background: "rgba(199, 211, 234, 0.06)", boxShadow: GLASS_SHADOW }}
+      className={`hero-floating-chip pointer-events-none absolute z-30 w-44 rounded-2xl border border-white/10 p-3 backdrop-blur-xl ${className}`}
+      style={{ background: "rgba(255,255,255,.92)", boxShadow: "0 20px 45px rgba(20,20,15,.12), inset 0 1px 0 rgba(255,255,255,.9)" }}
       initial={{ opacity: 0, y: 20, rotate }}
       animate={{
         opacity: 1,
-        y: [0, -12, 0],
+        y: [0, -8, 0],
         rotate: [rotate, rotate + 2, rotate],
       }}
       transition={{
         opacity: { duration: 0.6, delay },
-        y: { duration: 6, repeat: Infinity, ease: "easeInOut", delay },
+        y: { duration: 3.6, repeat: Infinity, ease: "easeInOut", delay },
         rotate: { duration: 7, repeat: Infinity, ease: "easeInOut", delay },
       }}
     >
       <div
-        className="inline-flex items-center gap-1.5 rounded-md border px-2 py-0.5 text-[10px] font-semibold"
+        className="floating-chip-label inline-flex items-center gap-1.5 rounded-md border px-2 py-0.5 text-[10px] font-semibold"
         style={{
           borderColor: "rgba(182,217,252,0.25)",
           color: C.blueprint,
@@ -89,44 +87,40 @@ function FloatingChip({ icon: Icon, label, text, className, delay, rotate }) {
     </motion.div>
   );
 }
-/* The live-interview mock — frosted glass card, midnight surface, violet accents. */
+/* The live-interview mock — premium editorial product card. */
 function InterviewMock() {
   return (
-    <div className="relative">
-      {/* Ambient violet halo behind the card */}
+    <div className="relative z-10">
+      {/* Quiet parchment halo behind the card */}
       <div
         className="absolute -inset-8 -z-10 rounded-[2.5rem] blur-3xl"
         style={{
-          background:
-            "radial-gradient(closest-side, rgba(102,58,243,0.28), transparent 70%)",
+          background: "rgba(190,255,80,.28)",
         }}
       />
       <div
-        className="rounded-[16px] border border-white/10 p-4 backdrop-blur-xl sm:p-5"
-        style={{ background: "rgba(5,6,15,0.72)", boxShadow: GLASS_SHADOW }}
+        className="interview-mock-card w-full max-w-xl rounded-[28px] border border-[#d2d2c8] p-5 sm:p-6"
+        style={{ background: "#ffffff", boxShadow: "0 30px 70px rgba(20,20,15,.14), 0 8px 24px rgba(20,20,15,.06)" }}
       >
-        <div className="mb-4 flex items-center gap-2 border-b border-white/[0.08] pb-3">
+        <div className="mb-5 flex items-center gap-3 border-b border-[#d2d2c8] pb-4">
           <span
-            className="flex h-7 w-7 items-center justify-center rounded-lg text-white"
+            className="flex h-8 w-8 items-center justify-center rounded-full text-[#14140f]"
             style={{
-              background: C.violet,
-              boxShadow: "0 0 20px rgba(102,58,243,0.45)",
+              background: "#beff50",
             }}
           >
-            <Repeat className="h-3.5 w-3.5" />
+            <CircleDot className="h-4 w-4" strokeWidth={2.5} />
           </span>
-          <span className="text-sm font-semibold" style={{ color: C.ice }}>
+          <span className="text-sm font-medium tracking-tight text-[#14140f]">
             Live interview
           </span>
           <span
-            className="ml-auto flex items-center gap-1.5 text-xs font-medium"
-            style={{ color: "#3dd7c0" }}
+            className="ml-auto flex items-center gap-1.5 text-[10px] font-medium uppercase tracking-[0.1em] text-[#6e6e64]"
           >
             <span
               className="h-1.5 w-1.5 rounded-full"
               style={{
-                background: "#3dd7c0",
-                boxShadow: "0 0 8px #3dd7c0",
+                background: "#beff50",
               }}
             />
             in progress
@@ -139,7 +133,7 @@ function InterviewMock() {
               key={i}
               initial={{ opacity: 0, y: 8 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.4 + i * 0.35, duration: 0.4 }}
+              transition={{ delay: 0.55 + i * 0.35, duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
               className={l.role === "candidate" ? "flex justify-end" : "flex justify-start"}
             >
               <div
@@ -147,16 +141,15 @@ function InterviewMock() {
                 style={
                   l.role === "candidate"
                     ? {
-                        borderBottomRightRadius: 6,
-                        background: C.violet,
-                        color: "#fff",
-                        boxShadow: "0 8px 24px rgba(102,58,243,0.35)",
+                        borderBottomRightRadius: 8,
+                        background: "#beff50",
+                        color: "#14140f",
                       }
                     : {
-                        borderBottomLeftRadius: 6,
-                        background: "rgba(199,211,234,0.08)",
-                        color: C.frost,
-                        border: "1px solid rgba(186,215,247,0.10)",
+                        borderBottomLeftRadius: 8,
+                        background: "#f5f5eb",
+                        color: "#14140f",
+                        border: "1px solid #d2d2c8",
                       }
                 }
               >
@@ -190,29 +183,15 @@ export default function Hero() {
     >
       {/* ── Background layers ─────────────────────────────────────── */}
 
-      {/* Faint blueprint grid, radially masked toward the top */}
-      <div
-        className="pointer-events-none absolute inset-0 -z-20"
-        style={{
-          backgroundImage:
-            "linear-gradient(to right, rgba(63,73,89,0.28) 1px, transparent 1px), linear-gradient(to bottom, rgba(63,73,89,0.28) 1px, transparent 1px)",
-          backgroundSize: "56px 56px",
-          maskImage:
-            "radial-gradient(ellipse 80% 60% at 50% 12%, black 35%, transparent 100%)",
-          WebkitMaskImage:
-            "radial-gradient(ellipse 80% 60% at 50% 12%, black 35%, transparent 100%)",
-        }}
-      />
-
       {/* Twin ambient glows — violet accent + frost wash */}
       <div className="pointer-events-none absolute inset-0 -z-10">
         <div
           className="absolute left-1/2 top-[-14%] h-[460px] w-[780px] -translate-x-1/2 rounded-full blur-[120px]"
-          style={{ background: "rgba(102,58,243,0.22)" }}
+          style={{ background: "transparent" }}
         />
         <div
           className="absolute right-[-6%] top-[30%] h-[320px] w-[320px] rounded-full blur-[110px]"
-          style={{ background: "rgba(182,217,252,0.10)" }}
+          style={{ background: "transparent" }}
         />
       </div>
 
@@ -235,37 +214,12 @@ export default function Hero() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
         >
-          {/* Eyebrow badge */}
-          <span
-            className="inline-flex items-center gap-2 rounded-full border px-3 py-1 text-xs font-medium backdrop-blur-md"
-            style={{
-              borderColor: "rgba(186,215,247,0.14)",
-              background: "rgba(199,211,234,0.06)",
-              color: C.frost,
-              boxShadow: "rgba(186,214,247,0.06) 0px 0px 0px 1px inset",
-            }}
-          >
-            <Sparkles className="h-3.5 w-3.5" style={{ color: C.blueprint }} />
-            Grounded in your real cohort progress
-          </span>
-
           {/* Display headline with ice→blue gradient fade on the key phrase */}
           <h1
-            className="mt-6 text-4xl font-medium leading-[1.06] tracking-[-0.02em] sm:text-5xl lg:text-[64px]"
+            className="max-w-[12ch] text-4xl font-medium leading-[.96] tracking-[-0.04em] sm:text-5xl lg:text-[64px]"
             style={{ fontFamily: DISPLAY_FONT, color: C.ice }}
           >
-            The AI interviewer that{" "}
-            <span
-              style={{
-                background: "linear-gradient(180deg, #d8ecf8 0%, #b6d9fc 55%, #98c0ef 100%)",
-                WebkitBackgroundClip: "text",
-                backgroundClip: "text",
-                color: "transparent",
-              }}
-            >
-              actually knows
-            </span>{" "}
-            what you learned
+            The AI interviewer<br />that actually knows<br />what you learned
           </h1>
 
           <p
@@ -299,12 +253,12 @@ export default function Hero() {
           transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1], delay: 0.15 }}
           className="relative flex items-center justify-center"
         >
-          <div className="hidden lg:block">
+          <div className="hero-floating-chips absolute inset-0 z-30 hidden lg:block">
             <FloatingChip
               icon={Gauge}
               label="AI Score"
               text="87 / 100 — strong retrieval reasoning"
-              className="right-[-4%] top-[6%]"
+              className="right-[-1rem] top-[78%] translate-x-full"
               delay={0.6}
               rotate={5}
             />
@@ -312,7 +266,7 @@ export default function Hero() {
               icon={Star}
               label="Feedback"
               text="Great grasp of citation grounding."
-              className="left-[-8%] bottom-[6%]"
+              className="left-[-8rem] top-[12%]"
               delay={1}
               rotate={-4}
             />
@@ -323,8 +277,7 @@ export default function Hero() {
 
       {/* Bottom fade into the next section */}
       <div
-        className="pointer-events-none absolute inset-x-0 bottom-0 h-32"
-        style={{ background: "linear-gradient(to top, #05060f, transparent)" }}
+        className="hero-bottom-fade pointer-events-none absolute inset-x-0 bottom-0 h-24"
       />
     </section>
   );

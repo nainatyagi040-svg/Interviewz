@@ -13,25 +13,28 @@ export default function Reveal({
       className={className}
       initial={{
         opacity: 0,
-        y: 40,
-        scale: 0.96,
-        filter: "blur(8px)",
+        y: 56,
+        scale: 0.94,
+        rotateX: 8,
+        filter: "blur(10px)",
       }}
       whileInView={{
         opacity: 1,
         y: 0,
         scale: 1,
+        rotateX: 0,
         filter: "blur(0px)",
       }}
       viewport={{
         once: true,
-        amount: 0.15,
+        amount: 0.22,
       }}
       transition={{
-        duration: 0.8,
+        duration: 0.95,
         delay,
         ease: [0.16, 1, 0.3, 1],
       }}
+      style={{ transformPerspective: 1200 }}
     >
       {children}
     </MotionTag>

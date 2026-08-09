@@ -6,21 +6,20 @@ import Callout from "../components/landing/Callout.jsx";
 import FeatureGrid from "../components/landing/FeatureGrid.jsx";
 import FinalCTA from "../components/landing/FinalCTA.jsx";
 import Footer from "../components/landing/Footer.jsx";
-import AnimatedBackground from "../components/ui/AnimatedBackground.jsx";
-import FloatingSparkles from "../components/ui/FloatingSparkles.jsx";
+import ScrollChoreography from "../components/landing/ScrollChoreography.jsx";
 
 export default function Landing() {
   return (
     <div
-      className="relative min-h-screen overflow-x-hidden"
-      style={{ background: "#05060f", color: "#d1e4fa" }}
+      className="landing-page relative min-h-screen overflow-x-hidden"
+      style={{ background: "#f9fbf2", color: "#130e30" }}
     >
       {/* Background Effects */}
-      <AnimatedBackground />
-      <FloatingSparkles />
+      <div className="garden-blobs" />
 
       {/* Navigation */}
       <Nav />
+      <ScrollChoreography />
 
       {/* Main Content */}
       <main className="relative z-10">

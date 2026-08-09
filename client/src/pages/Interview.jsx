@@ -9,8 +9,7 @@ import CandidatePicker from "../components/interview/CandidatePicker.jsx";
 import ChatTranscript from "../components/interview/ChatTranscript.jsx";
 import ChatInput from "../components/interview/ChatInput.jsx";
 import FeedbackScreen from "../components/interview/FeedbackScreen.jsx";
-import AnimatedBackground from "../components/ui/AnimatedBackground.jsx";
-import FloatingSparkles from "../components/ui/FloatingSparkles.jsx";
+import { ThemeToggle } from "../components/landing/Nav.jsx";
 
 export default function Interview() {
   const {
@@ -59,11 +58,10 @@ export default function Interview() {
   const member = candidate.member ?? {};
   return (
     <div
-      className="relative flex h-screen flex-col"
-      style={{ background: "#05060f" }}
+      className="interview-page relative flex h-screen flex-col"
+      style={{ background: "#f9fbf2" }}
     >
-      <AnimatedBackground />
-      <FloatingSparkles />
+      <div className="garden-blobs opacity-20" />
       <CameraFeed />
       <header
         className="relative border-b border-[rgba(186,215,247,0.10)] backdrop-blur-xl"
@@ -103,6 +101,7 @@ export default function Interview() {
           >
             <X className="h-4 w-4" /> End
           </button>
+          <ThemeToggle className="ml-1 shrink-0" />
         </div>
       </header>
 

@@ -146,8 +146,8 @@ export default function CandidatePicker({ onSelect }) {
 
   return (
     <div
-      className="relative min-h-screen"
-      style={{ background: "#05060f" }}
+      className="interview-page relative min-h-screen"
+      style={{ background: "#f9fbf2" }}
     >
       <AnimatedBackground />
       <FloatingSparkles />

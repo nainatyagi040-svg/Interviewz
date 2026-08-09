@@ -52,15 +52,14 @@ export default function HowItWorks() {
                 <div
                   className="flex h-11 w-11 items-center justify-center rounded-xl text-white transition-transform duration-500 group-hover:scale-110"
                   style={{
-                    background: "#663af3",
-                    boxShadow:
-                      "inset 0 1px 0 rgba(255,255,255,0.2), 0 0 22px rgba(102,58,243,0.45)",
+                    background: "#beff50",
+                    color: "#14140f",
                   }}
                 >
                   <s.icon className="h-5 w-5" />
                 </div>
                 <div className="mt-5 flex items-center gap-2">
-                  <span className="text-sm font-semibold text-[#b6d9fc]">
+                  <span className="text-sm font-medium uppercase tracking-[0.1em] text-[#6e6e64]">
                     Step {i + 1}
                   </span>
                 </div>
