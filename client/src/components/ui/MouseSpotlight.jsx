@@ -1,6 +1,7 @@
 import { useEffect, useRef } from "react";
 
-/** A soft light that follows the cursor within its parent (parent needs `relative`). */
+/** A soft light that follows the cursor within its parent (parent needs `relative`).
+ *  Tinted with Void Violet (#663af3) — the design-system accent. */
 export default function MouseSpotlight() {
   const ref = useRef(null);
 
@@ -14,7 +15,7 @@ export default function MouseSpotlight() {
       const rect = parent.getBoundingClientRect();
       const x = e.clientX - rect.left;
       const y = e.clientY - rect.top;
-      el.style.background = `radial-gradient(600px circle at ${x}px ${y}px, rgba(99,102,241,0.15), transparent 40%)`;
+      el.style.background = `radial-gradient(600px circle at ${x}px ${y}px, rgba(102,58,243,0.16), transparent 40%)`;
     };
 
     parent.addEventListener("mousemove", onMove);

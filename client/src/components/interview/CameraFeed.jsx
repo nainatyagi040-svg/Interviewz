@@ -43,12 +43,23 @@ export default function CameraFeed() {
   return (
     <div className="fixed bottom-24 right-6 z-40">
       <div
-        className={`relative w-28 h-28 sm:w-36 sm:h-36 rounded-full overflow-hidden border-4 shadow-xl transition-all duration-500 ${
-          status === "live" ? "border-indigo-500" : "border-gray-300"
-        }`}
+        className="relative w-28 h-28 sm:w-36 sm:h-36 rounded-full overflow-hidden border-2 transition-all duration-500"
+        style={{
+          borderColor:
+            status === "live"
+              ? "rgba(102,58,243,0.70)"
+              : "rgba(186,215,247,0.20)",
+          boxShadow:
+            status === "live"
+              ? "inset 0 1px 1px rgba(216,236,248,0.16), 0 0 28px rgba(102,58,243,0.45), 0 18px 40px rgba(6,6,14,0.6)"
+              : "inset 0 1px 1px rgba(216,236,248,0.12), 0 18px 40px rgba(6,6,14,0.6)",
+        }}
       >
         {status === "live" && (
-          <span className="absolute inset-0 rounded-full ring-4 ring-indigo-400/40 animate-pulse pointer-events-none" />
+          <span
+            className="absolute inset-0 rounded-full animate-pulse pointer-events-none"
+            style={{ boxShadow: "0 0 0 4px rgba(102,58,243,0.30)" }}
+          />
         )}
 
         <video
@@ -61,7 +72,10 @@ export default function CameraFeed() {
         />
 
         {status !== "live" && (
-          <div className="w-full h-full flex items-center justify-center bg-gray-100 text-gray-400">
+          <div
+            className="w-full h-full flex items-center justify-center text-[#9da7ba]"
+            style={{ background: "rgba(199,211,234,0.06)" }}
+          >
             {status === "requesting" ? (
               <Video className="w-6 h-6 animate-pulse" />
             ) : (
@@ -72,7 +86,7 @@ export default function CameraFeed() {
       </div>
 
       {status === "denied" && (
-        <p className="mt-1 text-[10px] text-center text-gray-400 max-w-[130px]">
+        <p className="mt-1 text-[10px] text-center text-[#9da7ba] max-w-[130px]">
           Camera access denied — interview still works fine.
         </p>
       )}
@@ -80,7 +94,12 @@ export default function CameraFeed() {
       {status === "live" && (
         <button
           onClick={() => setHidden(true)}
-          className="absolute -top-1 -right-1 w-6 h-6 rounded-full bg-white shadow flex items-center justify-center text-gray-500 hover:text-gray-700"
+          className="absolute -top-1 -right-1 w-6 h-6 rounded-full flex items-center justify-center text-[#c7d3ea] backdrop-blur-xl transition-colors duration-300 hover:text-[#d8ecf8]"
+          style={{
+            background: "rgba(5,6,15,0.82)",
+            border: "1px solid rgba(186,215,247,0.16)",
+            boxShadow: "inset 0 1px 0 rgba(216,236,248,0.14)",
+          }}
           aria-label="Hide camera"
         >
           ✕

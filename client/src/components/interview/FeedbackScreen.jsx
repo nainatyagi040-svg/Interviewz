@@ -8,6 +8,14 @@ import {
   ClipboardList,
 } from "lucide-react";
 import Button from "../ui/Button.jsx";
+import AnimatedBackground from "../ui/AnimatedBackground.jsx";
+import FloatingSparkles from "../ui/FloatingSparkles.jsx";
+
+const DISPLAY_FONT =
+  "'aeonikPro', 'Inter', ui-sans-serif, system-ui, -apple-system, 'Segoe UI', sans-serif";
+
+const GLASS_SHADOW =
+  "inset 0 1px 1px rgba(216,236,248,0.16), 0 16px 40px rgba(6,6,14,0.4)";
 
 const container = {
   hidden: { opacity: 0 },
@@ -29,27 +37,34 @@ function ListCard({ icon: Icon, title, items, accent, emptyText }) {
   return (
     <motion.div
       variants={item}
-      className={`rounded-2xl border p-6 shadow-soft ${accent.border} ${accent.bg}`}
+      className="rounded-[16px] border p-6 backdrop-blur-xl"
+      style={{
+        background: accent.bg,
+        borderColor: accent.border,
+        boxShadow: GLASS_SHADOW,
+      }}
     >
       <div className="flex items-center gap-2.5">
         <div
-          className={`flex h-9 w-9 items-center justify-center rounded-lg ${accent.iconBg} ${accent.iconText}`}
+          className="flex h-9 w-9 items-center justify-center rounded-lg"
+          style={{ background: accent.iconBg, color: accent.iconText }}
         >
           <Icon className="h-5 w-5" />
         </div>
-        <h3 className="text-lg font-semibold text-slate-900">{title}</h3>
+        <h3 className="text-lg font-semibold text-[#d8ecf8]">{title}</h3>
       </div>
       {list.length === 0 ? (
-        <p className="mt-4 text-sm italic text-slate-500">{emptyText}</p>
+        <p className="mt-4 text-sm italic text-[#9da7ba]">{emptyText}</p>
       ) : (
         <ul className="mt-4 space-y-2.5">
           {list.map((entry, i) => (
             <li
               key={i}
-              className="flex gap-2.5 text-sm leading-relaxed text-slate-700"
+              className="flex gap-2.5 text-sm leading-relaxed text-[#c7d3ea]"
             >
               <span
-                className={`mt-2 h-1.5 w-1.5 shrink-0 rounded-full ${accent.dot}`}
+                className="mt-2 h-1.5 w-1.5 shrink-0 rounded-full"
+                style={{ background: accent.dot }}
               />
               <span>{entry}</span>
             </li>
@@ -59,7 +74,6 @@ function ListCard({ icon: Icon, title, items, accent, emptyText }) {
     </motion.div>
   );
 }
-
 export default function FeedbackScreen({ feedback, candidate, onRestart }) {
   const fb = feedback ?? {};
   const name = candidate?.member?.name ?? "the candidate";
@@ -69,8 +83,10 @@ export default function FeedbackScreen({ feedback, candidate, onRestart }) {
       : "The interview is complete. A detailed summary was not available, but the conversation covered several core topics from the cohort.";
 
   return (
-    <div className="min-h-screen bg-slate-50/60">
-      <div className="container-tight py-12 sm:py-16">
+    <div className="relative min-h-screen" style={{ background: "#05060f" }}>
+      <AnimatedBackground />
+      <FloatingSparkles />
+      <div className="container-tight relative py-12 sm:py-16">
         <motion.div
           variants={container}
           initial="hidden"
@@ -85,11 +101,19 @@ export default function FeedbackScreen({ feedback, candidate, onRestart }) {
                 repeat: Infinity,
                 ease: "easeInOut",
               }}
-              className="inline-flex items-center gap-2 rounded-full border border-brand-200 bg-brand-50 px-3 py-1 text-xs font-medium text-brand-700 shadow-[0_0_20px_rgba(99,102,241,0.25)]"
+              className="inline-flex items-center gap-2 rounded-full px-3 py-1 text-xs font-medium text-[#c4b3fb] backdrop-blur-xl"
+              style={{
+                background: "rgba(102,58,243,0.12)",
+                border: "1px solid rgba(102,58,243,0.35)",
+                boxShadow: "0 0 22px rgba(102,58,243,0.30)",
+              }}
             >
               <Sparkles className="h-3.5 w-3.5" /> Interview complete
             </motion.span>
-            <h1 className="mt-4 text-3xl font-bold tracking-tight text-slate-900 sm:text-4xl">
+            <h1
+              className="mt-4 text-3xl font-medium tracking-tight text-[#d8ecf8] sm:text-4xl"
+              style={{ fontFamily: DISPLAY_FONT }}
+            >
               Here’s how {name.split(" ")[0]} did
             </h1>
           </motion.div>
@@ -97,15 +121,20 @@ export default function FeedbackScreen({ feedback, candidate, onRestart }) {
           {/* Summary — highlighted */}
           <motion.div
             variants={item}
-            className="mt-8 rounded-2xl border border-brand-100 bg-gradient-to-br from-brand-50 to-white p-6 shadow-soft sm:p-8"
+            className="mt-8 rounded-[16px] border border-[rgba(102,58,243,0.30)] p-6 backdrop-blur-xl sm:p-8"
+            style={{
+              background:
+                "linear-gradient(135deg, rgba(102,58,243,0.12), rgba(199,211,234,0.04))",
+              boxShadow: GLASS_SHADOW,
+            }}
           >
-            <div className="flex items-center gap-2 text-brand-700">
+            <div className="flex items-center gap-2 text-[#c4b3fb]">
               <ClipboardList className="h-5 w-5" />
               <span className="text-sm font-semibold uppercase tracking-wide">
                 Summary
               </span>
             </div>
-            <p className="mt-3 text-lg leading-relaxed text-slate-800">
+            <p className="mt-3 text-lg leading-relaxed text-[#d1e4fa]">
               {summary}
             </p>
           </motion.div>
@@ -118,11 +147,11 @@ export default function FeedbackScreen({ feedback, candidate, onRestart }) {
               items={fb.strengths}
               emptyText="No standout strengths were captured in this run."
               accent={{
-                border: "border-emerald-100",
-                bg: "bg-emerald-50/50",
-                iconBg: "bg-emerald-100",
-                iconText: "text-emerald-600",
-                dot: "bg-emerald-500",
+                border: "rgba(182,217,252,0.28)",
+                bg: "rgba(182,217,252,0.06)",
+                iconBg: "rgba(182,217,252,0.14)",
+                iconText: "#b6d9fc",
+                dot: "#b6d9fc",
               }}
             />
             <ListCard
@@ -131,11 +160,11 @@ export default function FeedbackScreen({ feedback, candidate, onRestart }) {
               items={fb.gaps}
               emptyText="Nothing notable — solid across the board."
               accent={{
-                border: "border-amber-100",
-                bg: "bg-amber-50/50",
-                iconBg: "bg-amber-100",
-                iconText: "text-amber-600",
-                dot: "bg-amber-500",
+                border: "rgba(255,180,90,0.24)",
+                bg: "rgba(255,180,90,0.06)",
+                iconBg: "rgba(255,180,90,0.14)",
+                iconText: "#ffcf8f",
+                dot: "#ffcf8f",
               }}
             />
           </div>
@@ -143,13 +172,24 @@ export default function FeedbackScreen({ feedback, candidate, onRestart }) {
           {/* Next steps — actionable */}
           <motion.div
             variants={item}
-            className="mt-6 rounded-2xl border border-slate-200 bg-white p-6 shadow-soft sm:p-8"
+            className="mt-6 rounded-[16px] border border-[rgba(186,215,247,0.12)] p-6 backdrop-blur-xl sm:p-8"
+            style={{
+              background: "rgba(199,211,234,0.05)",
+              boxShadow: GLASS_SHADOW,
+            }}
           >
             <div className="flex items-center gap-2.5">
-              <div className="flex h-9 w-9 items-center justify-center rounded-lg bg-brand-100 text-brand-600">
+              <div
+                className="flex h-9 w-9 items-center justify-center rounded-lg text-white"
+                style={{
+                  background: "#663af3",
+                  boxShadow:
+                    "inset 0 1px 0 rgba(255,255,255,0.2), 0 0 18px rgba(102,58,243,0.45)",
+                }}
+              >
                 <ArrowRight className="h-5 w-5" />
               </div>
-              <h3 className="text-lg font-semibold text-slate-900">
+              <h3 className="text-lg font-semibold text-[#d8ecf8]">
                 Recommended next steps
               </h3>
             </div>
@@ -161,9 +201,16 @@ export default function FeedbackScreen({ feedback, candidate, onRestart }) {
                   .map((step, i) => (
                     <li
                       key={i}
-                      className="flex gap-3 text-sm leading-relaxed text-slate-700"
+                      className="flex gap-3 text-sm leading-relaxed text-[#c7d3ea]"
                     >
-                      <span className="flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-brand-600 text-xs font-bold text-white">
+                      <span
+                        className="flex h-6 w-6 shrink-0 items-center justify-center rounded-full text-xs font-bold text-white"
+                        style={{
+                          background: "#663af3",
+                          boxShadow:
+                            "inset 0 1px 0 rgba(255,255,255,0.2), 0 0 14px rgba(102,58,243,0.45)",
+                        }}
+                      >
                         {i + 1}
                       </span>
                       <span className="pt-0.5">{step}</span>
@@ -171,7 +218,7 @@ export default function FeedbackScreen({ feedback, candidate, onRestart }) {
                   ))}
               </ol>
             ) : (
-              <p className="mt-4 text-sm italic text-slate-500">
+              <p className="mt-4 text-sm italic text-[#9da7ba]">
                 Keep practicing mock interviews to stay sharp — you’re in good
                 shape.
               </p>

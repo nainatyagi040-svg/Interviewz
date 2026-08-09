@@ -19,15 +19,21 @@ const steps = [
   },
 ];
 
+const DISPLAY_FONT =
+  "'aeonikPro', 'Inter', ui-sans-serif, system-ui, -apple-system, 'Segoe UI', sans-serif";
+
 export default function HowItWorks() {
   return (
     <section id="how-it-works" className="scroll-mt-20">
       <div className="container-tight py-20 sm:py-28">
         <Reveal className="mx-auto max-w-2xl text-center">
-          <h2 className="text-3xl font-bold tracking-tight text-slate-900 sm:text-4xl">
+          <h2
+            className="text-3xl font-medium tracking-tight text-[#d8ecf8] sm:text-4xl"
+            style={{ fontFamily: DISPLAY_FONT }}
+          >
             How it works
           </h2>
-          <p className="mt-4 text-lg text-slate-600">
+          <p className="mt-4 text-lg text-[#c7d3ea]">
             Three steps from your cohort history to interview-ready.
           </p>
         </Reveal>
@@ -35,19 +41,33 @@ export default function HowItWorks() {
         <div className="mt-14 grid gap-6 md:grid-cols-3">
           {steps.map((s, i) => (
             <Reveal key={s.title} delay={i * 0.1}>
-              <div className="relative h-full rounded-2xl border border-slate-200/80 bg-white p-7 shadow-soft">
-                <div className="flex h-11 w-11 items-center justify-center rounded-xl bg-brand-50 text-brand-600">
+              <div
+                className="group relative h-full rounded-[16px] border border-[rgba(186,215,247,0.12)] p-7 backdrop-blur-xl transition-all duration-500 hover:border-[rgba(102,58,243,0.35)]"
+                style={{
+                  background: "rgba(199,211,234,0.05)",
+                  boxShadow:
+                    "inset 0 1px 1px rgba(216,236,248,0.16), 0 16px 40px rgba(6,6,14,0.4)",
+                }}
+              >
+                <div
+                  className="flex h-11 w-11 items-center justify-center rounded-xl text-white transition-transform duration-500 group-hover:scale-110"
+                  style={{
+                    background: "#663af3",
+                    boxShadow:
+                      "inset 0 1px 0 rgba(255,255,255,0.2), 0 0 22px rgba(102,58,243,0.45)",
+                  }}
+                >
                   <s.icon className="h-5 w-5" />
                 </div>
                 <div className="mt-5 flex items-center gap-2">
-                  <span className="text-sm font-bold text-brand-600">
+                  <span className="text-sm font-semibold text-[#b6d9fc]">
                     Step {i + 1}
                   </span>
                 </div>
-                <h3 className="mt-1 text-lg font-semibold text-slate-900">
+                <h3 className="mt-1 text-lg font-semibold text-[#d8ecf8]">
                   {s.title}
                 </h3>
-                <p className="mt-2 text-sm leading-relaxed text-slate-600">
+                <p className="mt-2 text-sm leading-relaxed text-[#c7d3ea]">
                   {s.body}
                 </p>
               </div>

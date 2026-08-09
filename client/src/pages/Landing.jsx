@@ -11,7 +11,10 @@ import FloatingSparkles from "../components/ui/FloatingSparkles.jsx";
 
 export default function Landing() {
   return (
-    <div className="relative min-h-screen overflow-x-hidden bg-slate-950 text-slate-100">
+    <div
+      className="relative min-h-screen overflow-x-hidden"
+      style={{ background: "#05060f", color: "#d1e4fa" }}
+    >
       {/* Background Effects */}
       <AnimatedBackground />
       <FloatingSparkles />

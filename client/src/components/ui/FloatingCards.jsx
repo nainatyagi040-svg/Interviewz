@@ -6,7 +6,7 @@ const cards = [
     icon: MessageSquareText,
     label: "Question",
     text: "Walk me through your RAG pipeline.",
-    tone: "brand",
+    tone: "blueprint",
     delay: 0,
     x: 8,
     y: -18,
@@ -16,7 +16,7 @@ const cards = [
     icon: Gauge,
     label: "AI Score",
     text: "87 / 100 — strong retrieval reasoning",
-    tone: "emerald",
+    tone: "frost",
     delay: 0.5,
     x: 28,
     y: 22,
@@ -26,7 +26,7 @@ const cards = [
     icon: Star,
     label: "Feedback",
     text: "Great grasp of citation grounding.",
-    tone: "amber",
+    tone: "violet",
     delay: 1,
     x: 10,
     y: 58,
@@ -34,10 +34,14 @@ const cards = [
   },
 ];
 
+/* Cool, on-brand badge tones — Blueprint / Frost / single Void Violet accent. */
 const tones = {
-  brand: "border-brand-400/30 text-brand-300 bg-brand-500/10",
-  emerald: "border-emerald-400/30 text-emerald-300 bg-emerald-500/10",
-  amber: "border-amber-400/30 text-amber-300 bg-amber-500/10",
+  blueprint:
+    "border-[rgba(182,217,252,0.30)] text-[#b6d9fc] bg-[rgba(182,217,252,0.10)]",
+  frost:
+    "border-[rgba(209,228,250,0.28)] text-[#d1e4fa] bg-[rgba(199,211,234,0.10)]",
+  violet:
+    "border-[rgba(102,58,243,0.40)] text-[#c4b3fb] bg-[rgba(102,58,243,0.14)]",
 };
 
 /** Small glassy cards, positioned relative to the parent's own box — stays contained. */
@@ -48,8 +52,14 @@ export default function FloatingCards() {
         ({ icon: Icon, label, text, tone, delay, x, y, rotate }, i) => (
           <motion.div
             key={i}
-            className="absolute w-44 rounded-xl border bg-slate-900/80 p-3 shadow-xl backdrop-blur-md"
-            style={{ left: `${x}%`, top: `${y}%` }}
+            className="absolute w-44 rounded-2xl border border-[rgba(186,215,247,0.12)] p-3 backdrop-blur-xl"
+            style={{
+              left: `${x}%`,
+              top: `${y}%`,
+              background: "rgba(5,6,15,0.72)",
+              boxShadow:
+                "inset 0 1px 1px rgba(216,236,248,0.18), inset 0 24px 48px rgba(168,216,245,0.05), 0 16px 40px rgba(6,6,14,0.5)",
+            }}
             initial={{ opacity: 0, y: 20, rotate }}
             animate={{
               opacity: 1,
@@ -77,7 +87,7 @@ export default function FloatingCards() {
             >
               <Icon className="h-3 w-3" /> {label}
             </div>
-            <p className="mt-1.5 text-xs leading-snug text-slate-300">{text}</p>
+            <p className="mt-1.5 text-xs leading-snug text-[#c7d3ea]">{text}</p>
           </motion.div>
         ),
       )}

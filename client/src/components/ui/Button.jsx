@@ -5,17 +5,24 @@ const MotionLink = motion(Link);
 const MotionButton = motion.button;
 const MotionAnchor = motion.a;
 
+/*
+ * Buttons follow the design system: full-pill radius (--radius-buttons: 999px),
+ * Void Violet (#663af3) as the single chromatic accent for the primary action,
+ * frosted-glass surfaces for secondary/ghost. Colors use arbitrary Tailwind
+ * values so the component is self-contained during the incremental migration.
+ */
 const base =
-  "relative inline-flex items-center justify-center gap-2 overflow-hidden rounded-xl font-semibold transition-all duration-300 focus:outline-none focus-visible:ring-2 focus-visible:ring-indigo-400 focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-60";
+  "relative inline-flex items-center justify-center gap-2 overflow-hidden rounded-full font-semibold transition-all duration-300 ease-[cubic-bezier(0.16,1,0.3,1)] focus:outline-none focus-visible:ring-2 focus-visible:ring-[#663af3]/70 focus-visible:ring-offset-2 focus-visible:ring-offset-[#05060f] disabled:cursor-not-allowed disabled:opacity-60";
 
 const variants = {
   primary:
-    "bg-gradient-to-r from-indigo-600 via-violet-600 to-cyan-500 text-white shadow-xl shadow-indigo-500/30 hover:shadow-indigo-500/50",
+    "bg-[#663af3] text-white shadow-[inset_0_1px_0_rgba(255,255,255,0.22),0_8px_30px_rgba(102,58,243,0.40)] hover:bg-[#7248f6] hover:shadow-[inset_0_1px_0_rgba(255,255,255,0.28),0_12px_44px_rgba(102,58,243,0.60)]",
 
   secondary:
-    "border border-white/10 bg-white/5 text-slate-100 backdrop-blur-xl hover:bg-white/10",
+    "border border-[rgba(186,215,247,0.16)] bg-[rgba(199,211,234,0.06)] text-[#d1e4fa] backdrop-blur-xl shadow-[inset_0_1px_0_rgba(216,236,248,0.14)] hover:bg-[rgba(199,211,234,0.12)] hover:border-[rgba(186,215,247,0.30)]",
 
-  ghost: "text-slate-300 hover:bg-white/5 hover:text-white",
+  ghost:
+    "text-[#c7d3ea] hover:bg-white/[0.06] hover:text-[#d8ecf8]",
 };
 
 const sizes = {
@@ -53,8 +60,9 @@ export default function Button({
     variants[variant] ?? variants.primary
   } ${sizes[size] ?? sizes.md} ${className}`;
 
+  // Frosted light-sweep sheen that glides across on hover.
   const Glow = (
-    <span className="pointer-events-none absolute inset-0 rounded-xl bg-gradient-to-r from-white/10 via-transparent to-white/10 opacity-0 transition-opacity duration-500 group-hover:opacity-100" />
+    <span className="pointer-events-none absolute inset-0 rounded-full bg-gradient-to-r from-white/12 via-transparent to-white/12 opacity-0 transition-opacity duration-500 group-hover:opacity-100" />
   );
 
   if (as === "link" && to) {

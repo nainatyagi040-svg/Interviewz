@@ -1,11 +1,17 @@
 import { motion } from "framer-motion";
 
+/*
+ * Global page atmosphere. Follows the design system: Midnight Canvas base,
+ * Void Violet as the single chromatic accent, with cool Blueprint/Frost washes
+ * instead of the old cyan/fuchsia/amber aurora. Structure and motion timings
+ * are unchanged — only the palette is brought on-brand.
+ */
 export default function AnimatedBackground() {
   return (
-    <div className="pointer-events-none fixed inset-0 -z-20 overflow-hidden bg-[#050816]">
-      {/* Aurora Blob 1 */}
+    <div className="pointer-events-none fixed inset-0 -z-20 overflow-hidden bg-[#05060f]">
+      {/* Violet aurora — the primary accent glow */}
       <motion.div
-        className="absolute -top-72 -left-72 h-[850px] w-[850px] rounded-full bg-violet-500/30 blur-[180px]"
+        className="absolute -top-72 -left-72 h-[850px] w-[850px] rounded-full bg-[rgba(102,58,243,0.24)] blur-[180px]"
         animate={{
           x: [0, 150, 0],
           y: [0, 120, 0],
@@ -18,9 +24,9 @@ export default function AnimatedBackground() {
         }}
       />
 
-      {/* Aurora Blob 2 */}
+      {/* Blueprint-blue wash */}
       <motion.div
-        className="absolute top-20 -right-72 h-[800px] w-[800px] rounded-full bg-cyan-500/25 blur-[180px]"
+        className="absolute top-20 -right-72 h-[800px] w-[800px] rounded-full bg-[rgba(182,217,252,0.10)] blur-[180px]"
         animate={{
           x: [0, -140, 0],
           y: [0, 100, 0],
@@ -33,9 +39,9 @@ export default function AnimatedBackground() {
         }}
       />
 
-      {/* Aurora Blob 3 */}
+      {/* Deep violet undertone, slowly rotating */}
       <motion.div
-        className="absolute bottom-[-350px] left-1/4 h-[900px] w-[900px] rounded-full bg-fuchsia-500/20 blur-[200px]"
+        className="absolute bottom-[-350px] left-1/4 h-[900px] w-[900px] rounded-full bg-[rgba(102,58,243,0.14)] blur-[200px]"
         animate={{
           rotate: [0, 180, 360],
           scale: [1, 1.3, 1],
@@ -47,9 +53,9 @@ export default function AnimatedBackground() {
         }}
       />
 
-      {/* Extra Blue Glow */}
+      {/* Frost highlight breathing at center */}
       <motion.div
-        className="absolute left-1/2 top-1/2 h-[500px] w-[500px] -translate-x-1/2 -translate-y-1/2 rounded-full bg-sky-400/10 blur-[120px]"
+        className="absolute left-1/2 top-1/2 h-[500px] w-[500px] -translate-x-1/2 -translate-y-1/2 rounded-full bg-[rgba(209,228,250,0.06)] blur-[120px]"
         animate={{
           scale: [1, 1.4, 1],
         }}
@@ -60,9 +66,9 @@ export default function AnimatedBackground() {
         }}
       />
 
-      {/* Animated Grid */}
+      {/* Animated blueprint grid — Gridline Blue */}
       <motion.div
-        className="absolute inset-0 opacity-[0.05]"
+        className="absolute inset-0 opacity-[0.06]"
         animate={{
           backgroundPosition: ["0px 0px", "60px 60px"],
         }}
@@ -73,8 +79,8 @@ export default function AnimatedBackground() {
         }}
         style={{
           backgroundImage: `
-            linear-gradient(rgba(255,255,255,.18) 1px, transparent 1px),
-            linear-gradient(90deg, rgba(255,255,255,.18) 1px, transparent 1px)
+            linear-gradient(rgba(63,73,89,0.6) 1px, transparent 1px),
+            linear-gradient(90deg, rgba(63,73,89,0.6) 1px, transparent 1px)
           `,
           backgroundSize: "60px 60px",
         }}
@@ -85,13 +91,13 @@ export default function AnimatedBackground() {
         className="absolute inset-0 opacity-[0.03]"
         style={{
           backgroundImage:
-            "radial-gradient(circle, white 1px, transparent 1px)",
+            "radial-gradient(circle, rgba(216,236,248,0.9) 1px, transparent 1px)",
           backgroundSize: "28px 28px",
         }}
       />
 
-      {/* Vignette */}
-      <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,transparent_15%,#050816_95%)]" />
+      {/* Vignette into the canvas */}
+      <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,transparent_15%,#05060f_95%)]" />
     </div>
   );
 }
