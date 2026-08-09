@@ -1,10 +1,10 @@
-import Reveal from './Reveal.jsx';
+import Reveal from "./Reveal.jsx";
 
 const stats = [
-  { value: '31-day', label: 'AI engineering curriculum' },
-  { value: '8', label: 'modules, setup to capstone' },
-  { value: '20', label: 'learner profiles' },
-  { value: '8+', label: 'adaptive questions per interview' },
+  { value: "31-day", label: "AI engineering curriculum" },
+  { value: "8", label: "modules, setup to capstone" },
+  { value: "20", label: "learner profiles" },
+  { value: "8+", label: "adaptive questions per interview" },
 ];
 
 export default function StatStrip() {
@@ -17,11 +17,15 @@ export default function StatStrip() {
               <div className="text-2xl font-extrabold tracking-tight text-slate-900 sm:text-3xl">
                 {s.value}
               </div>
-              <div className="mt-1 text-xs leading-snug text-slate-500 sm:text-sm">{s.label}</div>
+              <div className="mt-1 text-xs leading-snug text-slate-500 sm:text-sm">
+                {s.label}
+              </div>
             </div>
           ))}
         </Reveal>
-        <p className="mt-6 text-center text-xs text-slate-400">Illustrative figures for the cohort concept.</p>
+        <p className="mt-6 text-center text-xs text-slate-400">
+          Illustrative figures for the cohort concept.
+        </p>
       </div>
     </section>
   );

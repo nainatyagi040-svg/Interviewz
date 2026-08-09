@@ -1,11 +1,13 @@
-import { Routes, Route, Navigate } from 'react-router-dom';
-import ErrorBoundary from './components/ErrorBoundary.jsx';
-import Landing from './pages/Landing.jsx';
-import Interview from './pages/Interview.jsx';
+import { Routes, Route, Navigate } from "react-router-dom";
+import ErrorBoundary from "./components/ErrorBoundary.jsx";
+import Landing from "./pages/Landing.jsx";
+import Interview from "./pages/Interview.jsx";
+import NoiseOverlay from "./components/ui/NoiseOverlay.jsx";
 
 export default function App() {
   return (
     <ErrorBoundary>
+      <NoiseOverlay />
       <Routes>
         <Route path="/" element={<Landing />} />
         <Route path="/interview" element={<Interview />} />

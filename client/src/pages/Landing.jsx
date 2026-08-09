@@ -11,11 +11,16 @@ import FloatingSparkles from "../components/ui/FloatingSparkles.jsx";
 
 export default function Landing() {
   return (
-    <div className="relative min-h-screen bg-white">
+    <div className="relative min-h-screen overflow-x-hidden bg-slate-950 text-slate-100">
+      {/* Background Effects */}
       <AnimatedBackground />
       <FloatingSparkles />
+
+      {/* Navigation */}
       <Nav />
-      <main>
+
+      {/* Main Content */}
+      <main className="relative z-10">
         <Hero />
         <StatStrip />
         <HowItWorks />
@@ -23,6 +28,8 @@ export default function Landing() {
         <FeatureGrid />
         <FinalCTA />
       </main>
+
+      {/* Footer */}
       <Footer />
     </div>
   );

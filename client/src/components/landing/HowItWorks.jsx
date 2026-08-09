@@ -1,21 +1,21 @@
-import { BookOpen, MessagesSquare, ClipboardCheck } from 'lucide-react';
-import Reveal from './Reveal.jsx';
+import { BookOpen, MessagesSquare, ClipboardCheck } from "lucide-react";
+import Reveal from "./Reveal.jsx";
 
 const steps = [
   {
     icon: BookOpen,
-    title: 'We read your learning journey',
-    body: 'Loop cross-references your missions against the curriculum — what you aced, what you struggled with, what you skipped.',
+    title: "We read your learning journey",
+    body: "Loop cross-references your missions against the curriculum — what you aced, what you struggled with, what you skipped.",
   },
   {
     icon: MessagesSquare,
-    title: 'You get a live, adaptive interview',
-    body: 'A senior-style interviewer asks real questions and follows up on your actual answers, going deeper where it matters.',
+    title: "You get a live, adaptive interview",
+    body: "A senior-style interviewer asks real questions and follows up on your actual answers, going deeper where it matters.",
   },
   {
     icon: ClipboardCheck,
-    title: 'You get structured feedback',
-    body: 'At the end, a clear breakdown of strengths, gaps, and concrete next steps — grounded in the whole conversation.',
+    title: "You get structured feedback",
+    body: "At the end, a clear breakdown of strengths, gaps, and concrete next steps — grounded in the whole conversation.",
   },
 ];
 
@@ -40,10 +40,16 @@ export default function HowItWorks() {
                   <s.icon className="h-5 w-5" />
                 </div>
                 <div className="mt-5 flex items-center gap-2">
-                  <span className="text-sm font-bold text-brand-600">Step {i + 1}</span>
+                  <span className="text-sm font-bold text-brand-600">
+                    Step {i + 1}
+                  </span>
                 </div>
-                <h3 className="mt-1 text-lg font-semibold text-slate-900">{s.title}</h3>
-                <p className="mt-2 text-sm leading-relaxed text-slate-600">{s.body}</p>
+                <h3 className="mt-1 text-lg font-semibold text-slate-900">
+                  {s.title}
+                </h3>
+                <p className="mt-2 text-sm leading-relaxed text-slate-600">
+                  {s.body}
+                </p>
               </div>
             </Reveal>
           ))}
