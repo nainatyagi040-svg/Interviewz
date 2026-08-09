@@ -4,7 +4,7 @@ Interviewz is a full-stack AI-powered mock interview platform that simulates rea
 
 Instead of asking fixed questions, the interviewer dynamically generates contextual follow-up questions based on the candidate's previous responses, creating a conversational interview experience similar to real technical interviews.
 
-The platform also includes live camera preview, face detection, head-direction monitoring, speech synthesis, animated UI, and structured AI-generated interview feedback.
+The platform also includes a live camera preview, speech synthesis and speech recognition, an animated interface, and structured AI-generated interview feedback.
 
 🔗 **Live Demo:** https://interviewz-three.vercel.app
 
@@ -42,33 +42,30 @@ The platform also includes live camera preview, face detection, head-direction m
 
 ---
 
-### 🎥 Camera Monitoring
+### 🎥 Camera Preview
 
-- Live camera preview
-- Browser-based camera access
-- Face detection
-- Head direction detection
-- Face presence monitoring
-- Interview attention monitoring prototype
-- Warning counter foundation
+- Live, floating self-camera preview during the interview
+- Browser-based camera access (`getUserMedia`)
+- Graceful handling of denied permission or no camera available
+- Purely cosmetic — the stream is processed locally and is **not recorded, uploaded, or analyzed**
 
 ---
 
 ### 🔊 Speech Features
 
-- AI interviewer speech synthesis
-- Automatic question narration
+- AI interviewer questions read aloud automatically (Speech Synthesis)
+- Candidates can answer by speaking, transcribed into the text input (Speech Recognition), with typing always available as well
+- Both built on free, native browser APIs — no external service or key required
 
 ---
 
 ### ✨ Modern UI
 
-- Animated landing page
-- Floating sparkles
-- Animated gradients
+- Animated landing page with a glowing AI orb, cursor-reactive spotlight, and floating context cards
+- Floating sparkles and animated gradients across every page
 - Framer Motion transitions
 - Responsive design
-- Modern interview interface
+- Modern, dark-themed interview interface
 
 ---
 
@@ -82,7 +79,6 @@ Interviewz
 │   ├── hooks
 │   ├── pages
 │   ├── store
-│   ├── utils
 │   └── data
 │
 └── server
@@ -131,9 +127,9 @@ AI Feedback Generation
 | AI | Google Gemini 3.5 Flash |
 | State Management | Zustand |
 | Animation | Framer Motion |
-| Camera | MediaPipe Tasks Vision |
+| Camera | Browser MediaDevices API (`getUserMedia`) |
 | Icons | Lucide React |
-| Speech | Web Speech API |
+| Speech | Web Speech API (Speech Synthesis + Speech Recognition) |
 | Deployment | Vercel + Render |
 
 ---
@@ -147,22 +143,6 @@ AI Feedback Generation
 - Adaptive Conversation Flow
 - Interview State Management
 - Curriculum-aware Question Selection
-
----
-
-# Camera & Presence Detection
-
-The interview interface includes browser-based camera monitoring.
-
-Current implementation includes:
-
-- Live Camera Preview
-- Face Detection
-- Head Direction Detection
-- Face Presence Detection
-- Warning Counter Prototype
-
-The camera stream is processed locally inside the browser and is **not uploaded or stored**.
 
 ---
 
@@ -233,14 +213,11 @@ PROMPTS.md
 
 # Future Improvements
 
-- Voice-based candidate responses
-- Multiple face detection
-- Eye gaze tracking
-- Automatic interview termination
+- Face/attention detection during the interview
 - Interview analytics dashboard
 - Admin panel
 - Interview history
-- Performance analytics
+- Performance analytics over multiple sessions
 
 ---
 
