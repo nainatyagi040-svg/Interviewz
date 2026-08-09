@@ -160,8 +160,15 @@ Implemented:
 - Motion-based page transitions
 - Interactive candidate cards
 - Enhanced landing page visuals
+- A breathing AI orb, cursor-reactive spotlight, and floating context cards on
+  the landing hero for a more premium first impression
 
-using Framer Motion while maintaining responsiveness.
+using Framer Motion while maintaining responsiveness. Iterated after an early
+version had floating decorative elements overlapping and obscuring real
+content, and after a couple of build-breaking JSX syntax issues introduced
+during iteration (a stray import statement placed inside a component body, and
+smart-quote corruption from copy-pasting text) — both traced from the exact
+build error and fixed directly.
 
 ---
 
@@ -187,79 +194,11 @@ including:
 - hide camera option
 - responsive floating preview
 
-No camera data is uploaded or stored.
-
----
-
-# Face Detection using MediaPipe
-
-## Prompt
-
-Requested face detection to monitor whether the candidate remains visible during
-the interview.
-
-## What it produced / how we used it
-
-Integrated Google's MediaPipe Tasks Vision library.
-
-Implemented:
-
-- Face detector initialization
-- Video stream analysis
-- Face presence detection
-- Real-time status updates
-
-showing:
-
-- Face Detected
-- No Face
-
-inside the interview interface.
-
----
-
-# Head Direction Detection
-
-## Prompt
-
-Requested detection of candidate head direction to determine whether the user
-is facing the interview screen.
-
-## What it produced / how we used it
-
-Implemented landmark-based head direction estimation using MediaPipe facial
-landmarks.
-
-Current supported states include:
-
-- CENTER
-- LEFT
-- RIGHT
-- UP
-- DOWN
-- NO_FACE
-
-This provides the foundation for future interview attention monitoring.
-
----
-
-# Attention Monitoring Prototype
-
-## Prompt
-
-Requested an interview monitoring prototype capable of tracking repeated
-attention loss.
-
-## What it produced / how we used it
-
-Implemented the first-stage monitoring logic including:
-
-- warning counter
-- direction monitoring
-- interview block state
-- cooldown timer between warnings
-
-This forms the base for future automated interview supervision features.
+No camera data is uploaded, recorded, or stored — the preview is local and
+cosmetic only. An earlier iteration explored adding face-detection-based
+attention monitoring on top of this preview; it was reverted after introducing
+a build-breaking hook error, in favor of keeping the camera feature simple and
+stable.
 
 ---
 
@@ -268,12 +207,17 @@ This forms the base for future automated interview supervision features.
 ## Prompt
 
 Requested a more realistic interview experience where interviewer questions are
-spoken aloud.
+spoken aloud, and where candidates could optionally answer by speaking instead
+of typing.
 
 ## What it produced / how we used it
 
-Integrated browser Speech Synthesis to read interviewer questions automatically,
-making the interaction closer to a real interview.
+Integrated the browser's built-in Speech Synthesis API to read interviewer
+questions aloud automatically, and the Speech Recognition API to transcribe a
+candidate's spoken answer into the existing text input (typing remains
+available as the default/fallback). Both are native browser APIs with no
+external service or key required, and degrade silently on unsupported
+browsers.
 
 ---
 
@@ -306,8 +250,7 @@ resulting in a stable deployed application.
 - Tailwind CSS
 - Framer Motion
 - Zustand
-- MediaPipe Tasks Vision
-- Speech Synthesis API
+- Speech Synthesis / Speech Recognition APIs (browser-native)
 - Node.js
 
 ---
